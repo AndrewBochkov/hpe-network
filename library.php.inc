@@ -805,8 +805,54 @@ print $textOut;
 
 //.. Тело таблицы
 	$iData = count ($netData);
+	$Series = $netData[0][0];
+	$ImageSeries = $netData[0][$iImage];
 
+	if ( strlen ($ImageSeries) > 1 && file_exists("image/".$ImageSeries) ) 
+			$iImages = "<img src=\"image/$ImageSeries\" alt=\"$Series\" border=\"0\" height=\"100\" style=\"vertical-align: middle;\" />";
+		else $iImages = "";
+	
+$textOut = <<<OUTs
+<tr>
+	<td colspan="4" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;">$iImages<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+</tr>
+OUTs;
+
+print $textOut;	
+	
 	for ( $j=0, $k=0; $j < $iData; $j++){
+		//.. Проверяем изменилась ли "серия" коммутаторов или нет
+		if ( strcmp ($Series, $netData[$j][0]) ){
+			
+			$Series = $netData[$j][0];
+			$ImageSeries = $netData[$j][$iImage];
+			
+			$k=0; //... Это для переключения цвета полоски!
+			
+			//.. Проверяем есть ли изображение к данной серии
+			if ( strlen ($ImageSeries) > 1 && file_exists("image/".$ImageSeries) ) { 
+					//.. Если изображение есть, то мы перед именем серии выводим изображение
+					//.. 22/09 - Нет, так не пойдет. Для вывода картинки нужно чтобы она еще и на диске была. Это надо проверить!!!!
+
+$textOut = <<<OUTs
+<tr>
+	<td colspan="4" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+</tr>
+OUTs;
+			
+				} else { //.. Иначе выводим только название Серии
+			
+$textOut = <<<OUTs
+<tr height="50">
+	<td colspan="4" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><b>$Series</b></td>
+</tr>
+OUTs;
+			}
+
+print $textOut;		
+		}
+	
+	
 
 		//.. Определяем цвет выводимой полоски ( по переменной $k)
 		if ( $k%2 ) $tr = "<tr align=\"center\">"; 
