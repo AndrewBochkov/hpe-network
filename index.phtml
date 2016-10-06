@@ -1,0 +1,42 @@
+<html>
+<body>
+
+<?
+error_reporting( E_ALL );
+//$ierror_reporting = error_reporting();
+//print "Установлен уровень ошибок $ierror_reporting <br>";
+
+require ("library.php.inc");
+//print "include Работает!<br>";
+
+list ( $Description, $Products ) = readFiles( 'HPE-Network.csv' );
+//print_r ( $Products );
+
+$Products = multOut ( $Products );
+//print_r ( $Products );
+
+//.. Записали основные параметры в сессию
+setSession ( $Description, $Products );
+
+//.. tableOut( $Description, $Products ); //.. До лучших времен :)
+
+//.. Выбираем поисковые параметры для последующего поиска
+
+list ( $pLevel, $pNumPorts, $pSreda, $pPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk) = collectParameters ( );
+
+/*
+print_r ( $pLevel );
+print_r ( $pNumPorts );
+print_r ( $pSreda );
+print_r ( $pPOEbudget );
+print_r ( $pMAC );
+print_r ( $pProizv );
+print_r ( $pPropusk );
+*/
+
+zaprosParameters( $pLevel, $pNumPorts, $pSreda, $pPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk);
+
+?>
+
+</BODY>
+</HTML>
