@@ -499,45 +499,55 @@ function compareFor( $Сhoices, $netDataString )
 //.. Аналитическая часть.
 //..	Ничего не выбрано
 		if ( !($mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)){
-			return ($iResult = 1);
+			return ($iResult = 1); //..... Выводим ВСЁ!
 		}
 //.. Выбран только один параметр
 //.. Количество портов
 		if ( $mH0 and (!( $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = byPortsOnly ( $Сhoices[0], $iSumС );
+				if ( !$iResult = byPortsOnly ( $Сhoices[0], $iSumС )) return (0);
 //.. Скорость портов
 		if ( $mH1 and (!( $mH0 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp );
+				if ( !$iResult = bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
 //.. Среда передачи данных
 		if ( $mH2 and (!( $mH0 or $mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = bySredaOnly ( $Сhoices[2], $cu, $fb );
+				if ( !$iResult = bySredaOnly ( $Сhoices[2], $cu, $fb )) return (0);
 //.. PoE
 		if ( $mH3 and (!( $mH0 or $mH1 or $mH2 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = $poe;
+				if ( !$iResult = $poe) return (0);
 //.. бюджет PoE
 		if ( $mH4 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = byPoeBudgetOnly ( $Сhoices[4], $hpoew );
+				if ( !$iResult = byPoeBudgetOnly ( $Сhoices[4], $hpoew )) return (0);
 //.. Уровень коммутации
 		if ( $mH5 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = byLevelOnly ( $Сhoices[5], $level );
+				if ( !$iResult = byLevelOnly ( $Сhoices[5], $level )) return (0);
 //.. Производительность
 		if ( $mH6 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH7 or $mH8)) ) 
-				$iResult = byPkOnly ( $Сhoices[6], $hpk );
+				if ( !$iResult = byPkOnly ( $Сhoices[6], $hpk )) return (0);
 //.. Пропускная способность
 		if ( $mH7 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH8)) ) 
-				$iResult = byPsOnly ( $Сhoices[7], $hps );
+				if ( !$iResult = byPsOnly ( $Сhoices[7], $hps )) return (0);
 //.. Таблица коммутации
 		if ( $mH8 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7)) ) 
-				$iResult = byMACOnly ( $Сhoices[8], $hmac );
+				if ( !$iResult = byMACOnly ( $Сhoices[8], $hmac )) return (0);
 //.......................................................................................
 //.. Если выбрано 2 параметра
 //.. Количество портов и скорость на портах
 		if ( $mH0 and $mH1 and (!($mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = byPortsSpeed ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp );
+				if ( !$iResult = byPortsSpeed ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
 //.......................................................................................
 //.. Количество портов и среда передачи
 		if ( $mH0 and $mH2 and (!($mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				$iResult = byPortsSreda ( $Сhoices, $iSumС, $iSumO );
+				if ( !$iResult = byPortsSreda ( $Сhoices, $iSumС, $iSumO )) return (0);
+//.......................................................................................
+//.......................................................................................
+//.. Если Первая пятерка выбрана и она удовлетворяет запросу 
+//.. то мы проверяем оставшиеся четыре параметра ...
+//.. то мы проверяем оставшиеся четыре параметра ...
+//		if ( $Result && $mH5 )
+		//if ( $Result && $mH6 )
+		//if ( $Result && $mH7 )
+		//if ( $Result && $mH8 )
+
 //.......................................................................................
 //.......................................................................................
 return ( $iResult );
@@ -761,7 +771,7 @@ return ( 0 );
 }
 //.......................................................................................
 //.......................................................................................
-//.. Вывод результатов, аналогично tableOut
+//.. Вывод результатов, аналогично tableOut, но в сокращенном виде
 function searchOut( $top, $netData, $choices )
 {
 //.....................................................
@@ -813,8 +823,8 @@ print $textOut;
 		else $iImages = "";
 	
 $textOut = <<<OUTs
-<tr>
-	<td colspan="4" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;">$iImages<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+<tr height="50">
+	<td colspan="3" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;">$iImages<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
 </tr>
 OUTs;
 
@@ -835,8 +845,8 @@ print $textOut;
 					//.. 22/09 - Нет, так не пойдет. Для вывода картинки нужно чтобы она еще и на диске была. Это надо проверить!!!!
 
 $textOut = <<<OUTs
-<tr>
-	<td colspan="4" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+<tr height="50">
+	<td colspan="3" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
 </tr>
 OUTs;
 			
@@ -844,7 +854,7 @@ OUTs;
 			
 $textOut = <<<OUTs
 <tr height="50">
-	<td colspan="4" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><b>$Series</b></td>
+	<td colspan="3" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><b>$Series</b></td>
 </tr>
 OUTs;
 			}
