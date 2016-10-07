@@ -546,14 +546,23 @@ function compareFor( $—hoices, $netDataString )
 		$iResult = 1;
 		//..TEST:: print "$netDataString[2]>iSum—=$iSum—/iSumO=$iSumO/$s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp/$cu, $fb/hpoew=$hpoew/$level=?$mH5/hpk=$hpk/hps=$hps/hmac=$hmac/<br>";
 		if ( $iResult and $mH0 ) if( !byPortsOnly( $—hoices[0], $iSum—, $iSumO ) ) return(0);
+		//print "after 0<br>";
 		if ( $iResult and $mH1 ) if( !bySpeedOnly ( $—hoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ) return(0);
+		//print "after 1<br>";
 		if ( $iResult and $mH2 ) if( !bySredaOnly ( $—hoices[2], $cu, $fb )) return(0);
+		//print "after 2<br>";
 		if ( $iResult and $mH3 ) if( !$poe ) return(0);
+		//print "after 3<br>";
 		if ( $iResult and $mH4 ) if( !byPoeBudgetOnly ( $—hoices[4], $hpoew )) return(0);
+		//print "after 4<br>";
 		if ( $iResult and $mH5 ) if( !byLevelOnly ( $—hoices[5], $level )) return(0);
+		//print "after 5<br>";
 		if ( $iResult and $mH6 ) if ( !byPkOnly ( $—hoices[6], $hpk )) return(0);
+		//print "after 6<br>";
 		if ( $iResult and $mH7 ) if ( !byPsOnly ( $—hoices[7], $hps )) return(0);
+		//print "after 7<br>";
 		if ( $iResult and $mH8 ) if ( !byMACOnly ( $—hoices[8], $hmac )) return(0);
+		//print "after 8<br>";
 
 //.......................................................................................
 //.......................................................................................
