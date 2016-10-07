@@ -544,8 +544,7 @@ function compareFor( $—hoices, $netDataString )
 //.. œÓ ÍÓÎË˜ÂÒÚ‚Û ÔÓÚÓ‚ ÒÓÓÚ‚ÂÚÒÚ‚ÛÂÚ?
 //.. TEST
 		$iResult = 1;
-		//..TEST:: 
-		print "$netDataString[2]>iSum—=$iSum—/iSumO=$iSumO/$s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp/$cu, $fb/hpoew=$hpoew/$level=?$mH5/hpk=$hpk/hps=$hps/hmac=$hmac/<br>";
+		//..TEST:: print "$netDataString[2]>iSum—=$iSum—/iSumO=$iSumO/$s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp/$cu, $fb/hpoew=$hpoew/$level=?$mH5/hpk=$hpk/hps=$hps/hmac=$hmac/<br>";
 		if ( $iResult and $mH0 ) if( !byPortsOnly( $—hoices[0], $iSum—, $iSumO ) ) return(0);
 		if ( $iResult and $mH1 ) if( !bySpeedOnly ( $—hoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ) return(0);
 		if ( $iResult and $mH2 ) if( !bySredaOnly ( $—hoices[2], $cu, $fb )) return(0);
