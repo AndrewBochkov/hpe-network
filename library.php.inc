@@ -504,7 +504,7 @@ function compareFor( $Сhoices, $netDataString )
 //.. Выбран только один параметр
 //.. Количество портов
 		if ( $mH0 and (!( $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byPortsOnly ( $Сhoices[0], $iSumС )) return (0);
+				if ( !$iResult = byPortsOnly ( $Сhoices[0], $iSumС, $iSumO )) return (0);
 //.. Скорость портов
 		if ( $mH1 and (!( $mH0 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
 				if ( !$iResult = bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
@@ -530,23 +530,31 @@ function compareFor( $Сhoices, $netDataString )
 		if ( $mH8 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7)) ) 
 				if ( !$iResult = byMACOnly ( $Сhoices[8], $hmac )) return (0);
 //.......................................................................................
-//.. Если выбрано 2 параметра
+//.. Если выбрано 2 параметра из первых СВОДНЫХ ( тех которые нужно обязательно считать)
 //.. Количество портов и скорость на портах
-		if ( $mH0 and $mH1 and (!($mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
+		if ( $mH0 and $mH1 and (!($mH2 or $mH3 or $mH4)) ) 
 				if ( !$iResult = byPortsSpeed ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
 //.......................................................................................
 //.. Количество портов и среда передачи
-		if ( $mH0 and $mH2 and (!($mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
+		if ( $mH0 and $mH2 and (!($mH1 or $mH3 or $mH4)) ) 
 				if ( !$iResult = byPortsSreda ( $Сhoices, $iSumС, $iSumO )) return (0);
 //.......................................................................................
 //.......................................................................................
-//.. Если Первая пятерка выбрана и она удовлетворяет запросу 
-//.. то мы проверяем оставшиеся четыре параметра ...
-//.. то мы проверяем оставшиеся четыре параметра ...
-//		if ( $Result && $mH5 )
-		//if ( $Result && $mH6 )
-		//if ( $Result && $mH7 )
-		//if ( $Result && $mH8 )
+//.. мы проверяем по одному ИЗ параметров и получается что мы смотрим если их несколько...
+//.. По количеству портов соответствует?
+//.. TEST
+		$iResult = 1;
+		//..TEST:: 
+		print "$netDataString[2]>iSumС=$iSumС/iSumO=$iSumO/$s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp/$cu, $fb/hpoew=$hpoew/$level=?$mH5/hpk=$hpk/hps=$hps/hmac=$hmac/<br>";
+		if ( $iResult and $mH0 ) if( !byPortsOnly( $Сhoices[0], $iSumС, $iSumO ) ) return(0);
+		if ( $iResult and $mH1 ) if( !bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ) return(0);
+		if ( $iResult and $mH2 ) if( !bySredaOnly ( $Сhoices[2], $cu, $fb )) return(0);
+		if ( $iResult and $mH3 ) if( !$poe ) return(0);
+		if ( $iResult and $mH4 ) if( !byPoeBudgetOnly ( $Сhoices[4], $hpoew )) return(0);
+		if ( $iResult and $mH5 ) if( !byLevelOnly ( $Сhoices[5], $level )) return(0);
+		if ( $iResult and $mH6 ) if ( !byPkOnly ( $Сhoices[6], $hpk )) return(0);
+		if ( $iResult and $mH7 ) if ( !byPsOnly ( $Сhoices[7], $hps )) return(0);
+		if ( $iResult and $mH8 ) if ( !byMACOnly ( $Сhoices[8], $hmac )) return(0);
 
 //.......................................................................................
 //.......................................................................................
@@ -557,21 +565,21 @@ return ( $iResult );
 //...........................................................................................................................
 //.. Функции определяющие удовлетворяем мы параметрам или нет...
 //.. По количеству портов 0 - нет нужных портов: 1 - нашли!
-function byPortsOnly ( $Сhoices, $iSumС )
+function byPortsOnly ( $Сhoices, $iSumС, $iSumO )
 {
 		switch ( $Сhoices ){
 			case 0: return (1); //.. Результат не важен или "нашли!"
-			case 1: if ( $iSumС == 5 ) return (1);
+			case 1: if ( $iSumС == 5 or $iSumO == 5) return (1);
 				break;
-			case 2: if ( $iSumС >= 8 && $iSumС <=10) return (1);
+			case 2: if ( ($iSumС >= 8 && $iSumС <=10) or ($iSumO >= 8 && $iSumO <=10)) return (1);
 				break;
-			case 3: if ( $iSumС >= 16 && $iSumС <=20) return (1);
+			case 3: if ( ($iSumС >= 16 && $iSumС <=20) or ($iSumO >= 16 && $iSumO <=20) ) return (1);
 				break;
-			case 4: if ( $iSumС >= 24 && $iSumС <=28) return (1);
+			case 4: if ( ($iSumС >= 24 && $iSumС <=28) or ($iSumO >= 24 && $iSumO <=28)) return (1);
 				break;
-			case 5: if ( $iSumС >= 48 && $iSumС <=52) return (1);
+			case 5: if ( ($iSumС >= 48 && $iSumС <=52) or ($iSumO >= 48 && $iSumO <=52)) return (1);
 				break;
-			case 6: if ( $iSumС > 52) return (1);
+			case 6: if ( ($iSumС > 52) or ($iSumO > 52) ) return (1);
 				break;
 		}
 return ( 0 );
