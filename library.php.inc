@@ -1,37 +1,61 @@
 <?php
-/*... 
-Этим файлом, я 13.09.16 начинаю работу по изготовлению программы поиска подходящего сетевого оборудования фирмы HPE
+/*...
+Р­С‚РёРј С„Р°Р№Р»РѕРј, СЏ 13.09.16 РЅР°С‡РёРЅР°СЋ СЂР°Р±РѕС‚Сѓ РїРѕ РёР·РіРѕС‚РѕРІР»РµРЅРёСЋ РїСЂРѕРіСЂР°РјРјС‹ РїРѕРёСЃРєР° РїРѕРґС…РѕРґСЏС‰РµРіРѕ СЃРµС‚РµРІРѕРіРѕ РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ С„РёСЂРјС‹ HPE
 
-readFiles( $nameFile) //.. Читаем содержимое файла в $Pieces, а описание в $Parametrs
-multOut( $netData ) //.. Размножаем "Серию" по всем продуктам
-tableOut ( $top, $netData ) //.. Вывод в табличной форме информации о продуктах
-collectParameters ( $Description, $Products ) //.. Выбираем поисковые параметры для последующего поиска
-zaprosParameters( $pLevel, $pNumPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk) //.. Вывод на экран страницы с параметрами поиска
-packToChoice ( $pLevel) //.. Формируем структурку выпадающего меню
-searchFor( $choices ) //.. Основная поисковая процедура. На выходе массив удовлетворяющий критериям поиска
-compareFor( $choices ) //.. Построчное сравнение
-searchOut( $top, $mSearch, $choices ) //.. Вывод результатов, аналогично tableOut
----------- Сессии для передачи переменных между программами
-setSession ( $Description, $Products ) //.. Заносим в сессию Массив Описаний параметров и Описание продуктов
-getSession ( ) //.. Получить данные из Сессии 
+readFiles( $nameFile) //.. Р§РёС‚Р°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р° РІ $Pieces, Р° РѕРїРёСЃР°РЅРёРµ РІ $Parametrs
+multOut( $netData ) //.. Р Р°Р·РјРЅРѕР¶Р°РµРј "РЎРµСЂРёСЋ" РїРѕ РІСЃРµРј РїСЂРѕРґСѓРєС‚Р°Рј
+tableOut ( $top, $netData ) //.. Р’С‹РІРѕРґ РІ С‚Р°Р±Р»РёС‡РЅРѕР№ С„РѕСЂРјРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРѕРґСѓРєС‚Р°С…
+collectParameters ( $Description, $Products ) //.. Р’С‹Р±РёСЂР°РµРј РїРѕРёСЃРєРѕРІС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РїРѕСЃР»РµРґСѓСЋС‰РµРіРѕ РїРѕРёСЃРєР°
+zaprosParameters( $pLevel, $pNumPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk) //.. Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ СЃС‚СЂР°РЅРёС†С‹ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё РїРѕРёСЃРєР°
+packToChoice ( $pLevel) //.. Р¤РѕСЂРјРёСЂСѓРµРј СЃС‚СЂСѓРєС‚СѓСЂРєСѓ РІС‹РїР°РґР°СЋС‰РµРіРѕ РјРµРЅСЋ
+searchFor( $choices ) //.. РћСЃРЅРѕРІРЅР°СЏ РїРѕРёСЃРєРѕРІР°СЏ РїСЂРѕС†РµРґСѓСЂР°. РќР° РІС‹С…РѕРґРµ РјР°СЃСЃРёРІ СѓРґРѕРІР»РµС‚РІРѕСЂСЏСЋС‰РёР№ РєСЂРёС‚РµСЂРёСЏРј РїРѕРёСЃРєР°
+compareFor( $choices ) //.. РџРѕСЃС‚СЂРѕС‡РЅРѕРµ СЃСЂР°РІРЅРµРЅРёРµ
+searchOut( $top, $mSearch, $choices ) //.. Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ, Р°РЅР°Р»РѕРіРёС‡РЅРѕ tableOut
+---------- РЎРµСЃСЃРёРё РґР»СЏ РїРµСЂРµРґР°С‡Рё РїРµСЂРµРјРµРЅРЅС‹С… РјРµР¶РґСѓ РїСЂРѕРіСЂР°РјРјР°РјРё
+setSession2 ( $Description, $Products ) //.. Р—Р°РЅРѕСЃРёРј РІ СЃРµСЃСЃРёСЋ РњР°СЃСЃРёРІ РћРїРёСЃР°РЅРёР№ РїР°СЂР°РјРµС‚СЂРѕРІ Рё РћРїРёСЃР°РЅРёРµ РїСЂРѕРґСѓРєС‚РѕРІ
+getSession2 ( ) //.. РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· РЎРµСЃСЃРёРё
 -----------------------------------------------------------
-$mH - Должно быть
-byPortsOnly ( $Сhoices[0], $iSumС ) //.. Нашли или нет нужное количество портов
-bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) //.. Только по скорости портов
-bySredaOnly ( $Сhoices[2], $cu, $fb ) //.. Среда
-byPoeBudgetOnly ( $Сhoices[4], $hpoew ) //.. PoE Бюджет
-byMACOnly ( $Сhoices[6], $hmac )
+$mH - Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ
+byPortsOnly ( $РЎhoices[0], $iSumРЎ ) //.. РќР°С€Р»Рё РёР»Рё РЅРµС‚ РЅСѓР¶РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ
+bySpeedOnly ( $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) //.. РўРѕР»СЊРєРѕ РїРѕ СЃРєРѕСЂРѕСЃС‚Рё РїРѕСЂС‚РѕРІ
+bySredaOnly ( $РЎhoices[2], $cu, $fb ) //.. РЎСЂРµРґР°
+byPoeBudgetOnly ( $РЎhoices[4], $hpoew ) //.. PoE Р‘СЋРґР¶РµС‚
+byMACOnly ( $РЎhoices[6], $hmac )
 
-byPortsSpeed ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) //.. По параметрам Количество определенных по скорости портов
-byPortsSpeedTest( $begin, $end, $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) //.. В помощь byPortsSpeed
+byPortsSpeed ( $РЎhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) //.. РџРѕ РїР°СЂР°РјРµС‚СЂР°Рј РљРѕР»РёС‡РµСЃС‚РІРѕ РѕРїСЂРµРґРµР»РµРЅРЅС‹С… РїРѕ СЃРєРѕСЂРѕСЃС‚Рё РїРѕСЂС‚РѕРІ
+byPortsSpeedTest( $begin, $end, $РЎhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) //.. Р’ РїРѕРјРѕС‰СЊ byPortsSpeed
 -----------------------------------------------------------
+print_reclama()
+-----------------------------------------------------------
+РґРѕР±Р°РІР»РµРЅРёРµ 08-06-17
+РґРѕР±Р°РІР»РµРЅР° РїРµСЂРµРјРµРЅРЅР°СЏ $family = 6; // РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ РёРјРµРЅРё СЃРµРјРµР№СЃС‚РІР°
+
+Р”РѕР±Р°РІР»РµРЅРѕ 25.07.17
+$nameFamily = array ("OfficeConnect", "Aruba", "FlexNetwork", "FlexFabric", "Altoline"); //.. РЈР¶Рµ РЅРµ РІРѕС€Р»Рё ProCurve Рё Mellanox, РЅР° РІС‹Р»РµС‚Рµ FlexFabric .. Р•С‰Рµ РЅРµ РїРѕРїР°Р»Рё Arista
+list( $name, $imageLink, $descriptionLink )= byField( $nField ) //..Р’С‹Р±РѕСЂ Р·Р°РїРёСЃРµР№ РїРѕ РѕРїСЂРµРґРµРЅРЅРѕРјСѓ РџРћР›Р® ( РєРѕРЅРєСЂРµС‚РЅРѕ РїРѕРєР° РїРѕ СЃРµРјРµР№СЃС‚РІСѓ)
+
+void mainFamily( $pFamily, $Products); //.. РћСЃРЅРѕРІРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° СЂР°Р±РѕС‚С‹ СЃ СЃРµРјРµР№СЃС‚РІР°РјРё. РµРµ Р·Р°РґР°С‡Р° РїСЂРѕР№С‚Рё РїРѕ РІСЃРµРј СЃРµРјРµР№СЃС‚РІР°Рј Рё РІС‹РІРµСЃС‚Рё РІСЃРµ РѕС‚РЅРѕСЃСЏС‰РёРµСЃСЏ Рє РЅРµРјСѓ СЃРµСЂРёРё
+
+-----------------------------------------------------------
+РґРѕР±Р°РІР»РµРЅРёРµ 06-09-17 .. Р­С‚Рѕ РёР·РјРµРЅРµРЅРёСЏ РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєРѕРіРґР° РЅСѓР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ Р·Р°РїРёСЃР°РЅРѕ С‡С‚Рѕ РЅРёР±СѓРґСЊ РІ СЏС‡РµР№РєСѓ РёР»Рё РЅРµС‚!!!!!
+- РґРѕР±Р°РІР»РµРЅР° РїСЂРѕРІСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ Р·Р°РїРёСЃРё РІ РїРѕР»Рµ 24 - РЅР°Р»РёС‡РёРµ РїР°СЃСЃРёРІРЅРѕРіРѕ РїРёС‚Р°РЅРёСЏ
+РёР·РјРµРЅРµРЅРёСЏ РІ searchFor - РґРѕР±Р°РІРёР» РєРµР№СЃ СЃ РїСЂРѕРІРµСЂРєРѕР№ РїРѕ СЌС‚РѕРјСѓ РїРѕР»СЋ Рё
+РёР·РјРµРЅРµРЅР° РїСЂРѕС†РµРґСѓСЂР° searchOUT - РіРґРµ РѕР±Р°РІР»РµРЅР° РїСЂРѕРІРµСЂРєР° РЅР° $choices[9] Рё РІС‹РІРѕРґ С‚РµРєСЃС‚РѕРІРѕР№ СЃС‚СЂРѕРєРё ....
+$choices[9]
+-----------------------------------------------------------
+15/01/18
+print_recomendation() - Р’С‹РІРѕРґРёРј С‚РµРєСЃС‚ СЃ СЂРµРєРѕРјРµРЅРґР°С†РёСЏРјРё РїРѕ РІС‹Р±РѕСЂСѓ РєРѕРјРјСѓС‚Р°С‚РѕСЂР°
+13.09.2018 Р’РЅРµСЃРµРЅРѕ РёР·РјРµРЅРµРЅРёРµ РІ РїСЂРѕРІРµСЂСЏРµРјРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ ( СЌС‚Рѕ РҐРђРљ :: РјС‹ РёС‰РµРј С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј С‡С‚РѕР±С‹ РЅР°Р№С‚Рё РІСЃРµ РІРІРµРґРµРЅРЅС‹Рµ РєРѕРјРјСѓС‚Р°С‚РѕСЂРѕРІ
+byPortsOnly()
+byPortsSpeed()
 
 */
 
 //.....................................................................................................................
 //..
-session_start();
-error_reporting( E_ALL );
+//ini_set("session.gc_maxlifetime",10800); //20-10
+//session_start(); //20-10
+//error_reporting( E_ALL );
 
 function readFiles( $nameFile )
 {
@@ -40,21 +64,21 @@ function readFiles( $nameFile )
 
 	$List = file ( $nameFile );
 	$iList = count ( $List );
-	
 	if ( $iList == 0 ) die ("$iList is empty");
-		
-	$Parametrs = explode ("~", $List[ 0 ]); // Расчленяем нулевую запись на описания!
+	for ( $j=0; $j<$iList; $j++ ) $List[$j] = mb_convert_encoding( $List[$j],'utf8', 'cp1251');
+
+	$Parametrs = explode ("~", $List[ 0 ]); // Р Р°СЃС‡Р»РµРЅСЏРµРј РЅСѓР»РµРІСѓСЋ Р·Р°РїРёСЃСЊ РЅР° РѕРїРёСЃР°РЅРёСЏ!
 	$iParametrs = count ( $Parametrs );
-	
-	//.. Test: print "В файле $nameFile всего $iList записей \\ В описании $iParametr полей\n\c";
+
+	//.. Test: print "Р’ С„Р°Р№Р»Рµ $nameFile РІСЃРµРіРѕ $iList Р·Р°РїРёСЃРµР№ \\ Р’ РѕРїРёСЃР°РЅРёРё $iParametr РїРѕР»РµР№\n\c";
 
 	//$iRealSring = 0;
-	//...А теперь полный вперед!
+	//...Рђ С‚РµРїРµСЂСЊ РїРѕР»РЅС‹Р№ РІРїРµСЂРµРґ!
 
-	for ( $j=1; $j < $iList; $j++){		
-		$Pieces = explode ("~", $List[ $j ]); // Расчленяем
+	for ( $j=1; $j < $iList; $j++){
+		$Pieces = explode ("~", $List[ $j ]); // Р Р°СЃС‡Р»РµРЅСЏРµРј
 		//...$iPieces = count ($Pieces);
-		if ( strlen($Pieces[0])<=1 && strlen($Pieces[1])<=1 ) continue; //.. Пропускаем не информативные ( пустые ) строки
+		if ( strlen($Pieces[0])<=1 && strlen($Pieces[1])<=1 ) continue; //.. РџСЂРѕРїСѓСЃРєР°РµРј РЅРµ РёРЅС„РѕСЂРјР°С‚РёРІРЅС‹Рµ ( РїСѓСЃС‚С‹Рµ ) СЃС‚СЂРѕРєРё
 		//$iRealSring++;
 		//.. Test:: print "$j -- $iRealSring\n<br>";
 		$massOut[] = $Pieces;
@@ -74,7 +98,7 @@ function multOut( $netData )
 
 	//$ii = 1;
 	//print "$ii==$tmpSeries<br>";
-	
+
 	for ( $j=1; $j < $iData; $j++){
 		if ( strlen ($netData[$j][0]) > 1 ){
 				$tmpSeries = $netData[$j][0];
@@ -88,15 +112,16 @@ return ( $netData );
 }
 
 //.....................................................................................................................
-//..
+//.. 
 function tableOut( $top, $netData )
 {
 
 //.....................................................
-//.. Номер и имя
+//.. РќРѕРјРµСЂ Рё РёРјСЏ
 	$name = 1;
 	$part = 2;
-//.. Блок портов
+	$family = 6;
+//.. Р‘Р»РѕРє РїРѕСЂС‚РѕРІ
 	$c100 = 7;
 	$p100 = 8;
 	$pp100 = 9;
@@ -104,26 +129,30 @@ function tableOut( $top, $netData )
 	$p1k = 12;
 	$pp1k = 13;
 	$c10k = 11;
-//.. Блок СФП
+//.. Р‘Р»РѕРє РЎР¤Рџ
 	$sfp = 14;
 	$sfpdp = 15;
 	$sfpp = 16;
 	$qsfp = 17;
-//.. Блок производительность
+//.. Р‘Р»РѕРє РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ
 	$ps = 20;
 	$pk = 21;
 	$mac = 22;
 	$poew = 25;
-//..Номер столбца в котором находится имя файла Серии
+//..РќРѕРјРµСЂ СЃС‚РѕР»Р±С†Р° РІ РєРѕС‚РѕСЂРѕРј РЅР°С…РѕРґРёС‚СЃСЏ РёРјСЏ С„Р°Р№Р»Р° РЎРµСЂРёРё
 	$iImage = 29;
 //.....................................................
 
-//.. Вывод заголовка таблицы
+	$imageRoot = "http://".$_SERVER["SERVER_NAME"];
+	$imageFile = $_SERVER["DOCUMENT_ROOT"];
+
+//.. Р’С‹РІРѕРґ Р·Р°РіРѕР»РѕРІРєР° С‚Р°Р±Р»РёС†С‹
 $textOut = <<<OUTs
 <table style="padding: 10px 0 10px; border-radius: 10px; background-color: #F0F8FF; border: 1px dotted #C4C9D1; color: #0b3d91;">
 <tr style="background: #ace7f2;">
 	<td>$top[$part]</td>
 	<td>$top[$name]</td>
+	<td>$top[$family]</td>
 	<td>$top[$c100]</td>
 	<td>$top[$p100]</td>
 	<td>$top[$pp100]</td>
@@ -133,7 +162,7 @@ $textOut = <<<OUTs
 	<td>$top[$c10k]</td>
 	<td>$top[$sfp]</td>
 	<td>$top[$sfpp]</td>
-	<td>$top[$qsfp]</td>	
+	<td>$top[$qsfp]</td>
 	<td>$top[$ps]</td>
 	<td>$top[$pk]</td>
 	<td>$top[$mac]</td>
@@ -142,18 +171,18 @@ $textOut = <<<OUTs
 OUTs;
 print $textOut;
 
-//.. Тело таблицы
+//.. РўРµР»Рѕ С‚Р°Р±Р»РёС†С‹
 	$iData = count ($netData);
 	$Series = $netData[0][0];
 	$ImageSeries = $netData[0][$iImage];
 
 	//..TEST::print "<br>ImageSeries =$ImageSeries<br>";
-	
-if ( strlen ($ImageSeries) > 1 && file_exists("image/".$ImageSeries) ) {
-	
+
+if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) ) {
+
 $textOut = <<<OUTs
 <tr>
-	<td colspan="16" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;"><img src="image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+	<td colspan="16" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;"><img src="$imageRoot/request/image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
 </tr>
 OUTs;
 	} else {
@@ -166,27 +195,27 @@ OUTs;
 print $textOut;
 
 	for ( $j=0, $k=0; $j < $iData; $j++){
-		
-		//.. Проверяем изменилась ли "серия" коммутаторов или нет
+
+		//.. РџСЂРѕРІРµСЂСЏРµРј РёР·РјРµРЅРёР»Р°СЃСЊ Р»Рё "СЃРµСЂРёСЏ" РєРѕРјРјСѓС‚Р°С‚РѕСЂРѕРІ РёР»Рё РЅРµС‚
 		if ( strcmp ($Series, $netData[$j][0]) ){
-			
+
 			$Series = $netData[$j][0];
 			$ImageSeries = $netData[$j][$iImage];
-			$k=0; //... Это для переключения цвета полоски!
-			
-			//.. Проверяем есть ли изображение к данной серии
-			if ( strlen ($ImageSeries) > 1 && file_exists("image/".$ImageSeries) ) { 
-					//.. Если изображение есть, то мы перед именем серии выводим изображение
-					//.. 22/09 - Нет, так не пойдет. Для вывода картинки нужно чтобы она еще и на диске была. Это надо проверить!!!!
+			$k=0; //... Р­С‚Рѕ РґР»СЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ С†РІРµС‚Р° РїРѕР»РѕСЃРєРё!
+
+			//.. РџСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ Рє РґР°РЅРЅРѕР№ СЃРµСЂРёРё
+			if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries ) ) {
+					//.. Р•СЃР»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ РµСЃС‚СЊ, С‚Рѕ РјС‹ РїРµСЂРµРґ РёРјРµРЅРµРј СЃРµСЂРёРё РІС‹РІРѕРґРёРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+					//.. 22/09 - РќРµС‚, С‚Р°Рє РЅРµ РїРѕР№РґРµС‚. Р”Р»СЏ РІС‹РІРѕРґР° РєР°СЂС‚РёРЅРєРё РЅСѓР¶РЅРѕ С‡С‚РѕР±С‹ РѕРЅР° РµС‰Рµ Рё РЅР° РґРёСЃРєРµ Р±С‹Р»Р°. Р­С‚Рѕ РЅР°РґРѕ РїСЂРѕРІРµСЂРёС‚СЊ!!!!
 
 $textOut = <<<OUTs
 <tr>
-	<td colspan="16" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+	<td colspan="16" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="$imageRoot/request/image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
 </tr>
 OUTs;
-			
-				} else { //.. Иначе выводим только название Серии
-			
+
+				} else { //.. РРЅР°С‡Рµ РІС‹РІРѕРґРёРј С‚РѕР»СЊРєРѕ РЅР°Р·РІР°РЅРёРµ РЎРµСЂРёРё
+
 $textOut = <<<OUTs
 <tr height="50">
 	<td colspan="16" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><b>$Series</b></td>
@@ -194,20 +223,21 @@ $textOut = <<<OUTs
 OUTs;
 			}
 
-print $textOut;		
-		
-		} //.. Окончание блока, который выполняется когда изменяется Серия
-		
-		
-		//.. Определяем цвет выводимой полоски ( по переменной $k)
-		if ( $k%2 ) $tr = "<tr align=\"center\">"; 
-			else 
+print $textOut;
+
+		} //.. РћРєРѕРЅС‡Р°РЅРёРµ Р±Р»РѕРєР°, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РєРѕРіРґР° РёР·РјРµРЅСЏРµС‚СЃСЏ РЎРµСЂРёСЏ
+
+
+		//.. РћРїСЂРµРґРµР»СЏРµРј С†РІРµС‚ РІС‹РІРѕРґРёРјРѕР№ РїРѕР»РѕСЃРєРё ( РїРѕ РїРµСЂРµРјРµРЅРЅРѕР№ $k)
+		if ( $k%2 ) $tr = "<tr align=\"center\">";
+			else
 			$tr = "<tr align=\"center\" style=\"color: #0b3d91; background: #f0ffff;\">";
 		$k++;
-		
-//.. Блок вывода строки данных по модели	
+
+//.. Р‘Р»РѕРє РІС‹РІРѕРґР° СЃС‚СЂРѕРєРё РґР°РЅРЅС‹С… РїРѕ РјРѕРґРµР»Рё
 		$i1 = $netData[$j][$part];
 		$i2 = $netData[$j][$name];
+		$i23 = $netData[$j][$family];
 		$i3 = $netData[$j][$c100];
 		$i4 = $netData[$j][$p100];
 		$i5 = $netData[$j][$pp100];
@@ -217,73 +247,108 @@ print $textOut;
 		$i9 = $netData[$j][$c10k];
 		$i13 = $netData[$j][$sfp];
 		$i14 = $netData[$j][$sfpp];
-		$i15 = $netData[$j][$qsfp];		
+		$i15 = $netData[$j][$qsfp];
 		$i10 = $netData[$j][$ps];
 		$i11 = $netData[$j][$pk];
 		$i12 = $netData[$j][$mac];
 		$i16 = $netData[$j][$poew];
-		
+
 $textOut = <<<OUTs
 $tr
 	<td>$i1</td>
 	<td align="left">$i2</td>
+	<td align="left">$i23</td>
 	<td>$i3</td>
 	<td>$i4</td>
-	<td>$i5</td>		
+	<td>$i5</td>
 	<td>$i6</td>
 	<td>$i7</td>
 	<td>$i8</td>
 	<td>$i9</td>
 	<td>$i13</td>
 	<td>$i14</td>
-	<td>$i15</td>	
+	<td>$i15</td>
 	<td>$i10</td>
-	<td>$i11</td>	
-	<td>$i12</td>	
-	<td>$i16</td>	
+	<td>$i11</td>
+	<td>$i12</td>
+	<td>$i16</td>
 </tr>
 OUTs;
 print $textOut;
-	
+
 	}
-	
-//.. Финал таблицы
-print "<table>";
+
+//.. Р¤РёРЅР°Р» С‚Р°Р±Р»РёС†С‹
+print "</table>";
 
 }
 
-//.. Выбираем поисковые параметры для последующего поиска ( что то мне кажется это только на время разработки программы)
+//.. Р’С‹Р±РёСЂР°РµРј РїРѕРёСЃРєРѕРІС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РїРѕСЃР»РµРґСѓСЋС‰РµРіРѕ РїРѕРёСЃРєР° ( С‡С‚Рѕ С‚Рѕ РјРЅРµ РєР°Р¶РµС‚СЃСЏ СЌС‚Рѕ С‚РѕР»СЊРєРѕ РЅР° РІСЂРµРјСЏ СЂР°Р·СЂР°Р±РѕС‚РєРё РїСЂРѕРіСЂР°РјРјС‹) - 7/06 - РѕС€РёР±РёР»СЃСЏ ))))
 
 function collectParameters ( )
 {
-//.. Итак, какие параметры мы выбираем 
+//.. РС‚Р°Рє, РєР°РєРёРµ РїР°СЂР°РјРµС‚СЂС‹ РјС‹ РІС‹Р±РёСЂР°РµРј
 //--------------------------------------------------------------------------------------------
-//.. +Коммутаторы Уровня ( 2; 3 Lite; 3 Dynamic; 3 Advanced )
-//.. Количество портов ( 6 групп: 5портов; 8-10; 16-20; 24-28; 48-52; больше 52 )
-//.. Коммутаторы ( 10/100 ; 100/1K; 10K
-//.. Коммутаторы с PoE
-//.. Коммутаторы с PoE+
-//.. +PoE бюджет ( до 124W; до 382W; свыше 382W)
-//.. +Коммутаторы с таблицей MAC (не менее: 8192; 16384; до 32768 )
-//.. +Коммутаторы с производительностью ( не менее: 20; 80; 200; 550; 1000; 2000)
-//.. +Коммутаторы с пропускной способностью ( не менее: 10; 50; 100; 250)
-//.. Коммутаторы без вентиляторов fanless
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ РЈСЂРѕРІРЅСЏ ( 2; 3 Lite; 3 Dynamic; 3 Advanced )
+//.. РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ ( 6 РіСЂСѓРїРї: 5РїРѕСЂС‚РѕРІ; 8-10; 16-20; 24-28; 48-52; Р±РѕР»СЊС€Рµ 52 )
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ ( 10/100 ; 100/1K; 10K
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ PoE
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ PoE+
+//.. +PoE Р±СЋРґР¶РµС‚ ( РґРѕ 124W; РґРѕ 382W; СЃРІС‹С€Рµ 382W)
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ С‚Р°Р±Р»РёС†РµР№ MAC (РЅРµ РјРµРЅРµРµ: 8192; 16384; РґРѕ 32768 )
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊСЋ ( РЅРµ РјРµРЅРµРµ: 20; 80; 200; 550; 1000; 2000)
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ РїСЂРѕРїСѓСЃРєРЅРѕР№ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊСЋ ( РЅРµ РјРµРЅРµРµ: 10; 50; 100; 250)
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ Р±РµР· РІРµРЅС‚РёР»СЏС‚РѕСЂРѕРІ fanless
 
-	$pNumPorts = array( "5", "8-10", "16-20", "24-28","48-52", "больше 52");
-	$pPorts = array( "10/100", "100/1K", "1K/10K", "40K");
-	$pSreda = array( "витая пара", "оптика");
-	$pPOEbudget = array( "до 124W", "до 382W", "выше 382W");
+	$pNumPorts = array( "5", "8-10", "16-20", "24-28","48-52", "Р±РѕР»СЊС€Рµ 52");
+	$pPorts = array( "10/100", "100/1GbE", "1GbE/10GbE", "40GbE");
+	$pSreda = array( "РІРёС‚Р°СЏ РїР°СЂР° РёР»Рё РІРёС‚Р°СЏ РїР°СЂР°+РѕРїС‚РёРєР°", "РѕРїС‚РёРєР° РёР»Рё РѕРїС‚РёРєР°+РІРёС‚Р°СЏ РїР°СЂР°");
+	$pPOEbudget = array( "РґРѕ 124W", "РґРѕ 382W", "РІС‹С€Рµ 382W");
 	$pLevel = array( "2", "3 Lite", "3 Dynamic", "3 Advanced");
-	$pMAC = array( "до 8192", "до 16384", "до 32768");
-	$pProizv = array( "до 20", "от 20 до 80", "от 80 до 200", "от 200 до 550", "от 550 до 1000", "от 1000 до 2000");
-	$pPropusk = array( "до 10", "до 50", "до 100", "до 250");
+	$pMAC = array( "РґРѕ 8192", "РґРѕ 16384", "РґРѕ 32768");
+	$pProizv = array( "РґРѕ 20", "РѕС‚ 20 РґРѕ 80", "РѕС‚ 80 РґРѕ 200", "РѕС‚ 200 РґРѕ 550", "РѕС‚ 550 РґРѕ 1000", "РѕС‚ 1000 РґРѕ 2000");
+	$pPropusk = array( "РґРѕ 10", "РґРѕ 50", "РґРѕ 100", "РґРѕ 250");
 
 return array ( $pLevel, $pNumPorts, $pSreda, $pPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk) ;
 
 }
 
+//.. Р’С‹Р±РёСЂР°РµРј РїРѕРёСЃРєРѕРІС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РїРѕСЃР»РµРґСѓСЋС‰РµРіРѕ РїРѕРёСЃРєР° ( С‡С‚Рѕ С‚Рѕ РјРЅРµ РєР°Р¶РµС‚СЃСЏ СЌС‚Рѕ С‚РѕР»СЊРєРѕ РЅР° РІСЂРµРјСЏ СЂР°Р·СЂР°Р±РѕС‚РєРё РїСЂРѕРіСЂР°РјРјС‹) - 7/06 - РѕС€РёР±РёР»СЃСЏ ))))
+
+function collectParametersMore ( )
+{
+//.. РС‚Р°Рє, РєР°РєРёРµ РїР°СЂР°РјРµС‚СЂС‹ РјС‹ РІС‹Р±РёСЂР°РµРј
+//--------------------------------------------------------------------------------------------
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ РЈСЂРѕРІРЅСЏ ( 2; 3 Lite; 3 Dynamic; 3 Advanced )
+//.. РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ ( 6 РіСЂСѓРїРї: 5РїРѕСЂС‚РѕРІ; 8-10; 16-20; 24-28; 48-52; Р±РѕР»СЊС€Рµ 52 )
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ ( 10/100 ; 100/1K; 10K
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ PoE
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ PoE+
+//.. +PoE Р±СЋРґР¶РµС‚ ( РґРѕ 124W; РґРѕ 382W; СЃРІС‹С€Рµ 382W)
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ С‚Р°Р±Р»РёС†РµР№ MAC (РЅРµ РјРµРЅРµРµ: 8192; 16384; РґРѕ 32768 )
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊСЋ ( РЅРµ РјРµРЅРµРµ: 20; 80; 200; 550; 1000; 2000)
+//.. +РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ РїСЂРѕРїСѓСЃРєРЅРѕР№ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊСЋ ( РЅРµ РјРµРЅРµРµ: 10; 50; 100; 250)
+//.. РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ Р±РµР· РІРµРЅС‚РёР»СЏС‚РѕСЂРѕРІ fanless
+
+	$pNumPorts = array( "5", "8-10", "16-20", "24-28","48-52", "Р±РѕР»СЊС€Рµ 52");
+	$pPorts = array( "10/100", "100/1GbE", "1GbE/10GbE", "40GbE");
+	$pSreda = array( "РІРёС‚Р°СЏ РїР°СЂР° РёР»Рё РІРёС‚Р°СЏ РїР°СЂР°+РѕРїС‚РёРєР°", "РѕРїС‚РёРєР° РёР»Рё РѕРїС‚РёРєР°+РІРёС‚Р°СЏ РїР°СЂР°");
+	$pPOEbudget = array( "РґРѕ 124W", "РґРѕ 382W", "РІС‹С€Рµ 382W");
+	$pLevel = array( "2", "3 Lite", "3 Dynamic", "3 Advanced");
+	$pMAC = array( "РґРѕ 8192", "РґРѕ 16384", "РґРѕ 32768");
+	$pProizv = array( "РґРѕ 20", "РѕС‚ 20 РґРѕ 80", "РѕС‚ 80 РґРѕ 200", "РѕС‚ 200 РґРѕ 550", "РѕС‚ 550 РґРѕ 1000", "РѕС‚ 1000 РґРѕ 2000");
+	$pPropusk = array( "РґРѕ 10", "РґРѕ 50", "РґРѕ 100", "РґРѕ 250");
+	$pFamily = array ("OfficeConnect", "Aruba", "FlexNetwork", "FlexFabric", "Altoline");
+
+return array ( $pLevel, $pNumPorts, $pSreda, $pPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk, $pFamily) ;
+
+}
+//...........................................................................................................
+//... Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ С„РѕСЂРјС‹ Р·Р°РїСЂРѕСЃР° РїРѕРёСЃРєРѕРІС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ 
+
 function zaprosParameters( $pLevel, $pNumPorts, $pSreda, $pPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk )
 {
+$imageRoot ="http://". $_SERVER["SERVER_NAME"];
 
 $i1 = packToChoice ( $pNumPorts, 0);
 $i2 = packToChoice ( $pPorts, 1);
@@ -296,11 +361,15 @@ $i7 = packToChoice ( $pPropusk, 7);
 $i8 = packToChoice ( $pMAC, 8);
 
 $textOut = <<<OUTs
-<form action="zapros.php" method="POST" name="Solution">
-<table  align="center" style="width: 60%; padding: 10px 0 10px; background-color: #F0F8FF; border-radius: 10px; border: 1px dotted #C4C9D1; color: #0b3d91;">
+<form action="/request/zapros_network.php" method="POST" name="Solution">
+<div align=center>
+<table  align="center" style="width: 75%; padding: 10px 0 10px; background-color: #F0F8FF; border-radius: 10px; border: 1px dotted #C4C9D1; color: #0b3d91;">
 				<tr>
 								<td colspan="4" align="center" style="border-bottom: 1px dotted #C4C9D1;">
-								<h2>Подбор сетевого оборудования HPE <br>по основным параметрам</h2>
+								<h2>РџРѕРґР±РѕСЂ СЃРµС‚РµРІРѕРіРѕ РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ HPE <br>РїРѕ РѕСЃРЅРѕРІРЅС‹Рј РїР°СЂР°РјРµС‚СЂР°Рј</h2>						
+								<div align=center>
+									<img src="/about/images/Aruba_BussinessPartner.png" title="Aruba Solution Provider Bussiness Partner" border="0" width="100">
+								</div>
 								</td>
 				</tr>
 				<tr>
@@ -308,32 +377,32 @@ $textOut = <<<OUTs
 								<td colspan="3">&nbsp;</td>
 				</tr>
 				<tr>
-								<td>Количество портов</td>
+								<td>РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ</td>
 								<td colspan="3">$i1</td>
 				</tr>
 				<tr>
-								<td>Максимальная скорость передачи данных</td>
+								<td>РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…</td>
 								<td>$i2</td>
-								<td>Среда передачи данных</td>
+								<td>РЎСЂРµРґР° РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…</td>
 								<td>$i21</td>
 				</tr>
 				<tr>
-								<td>Нужны ли порты PoE/PoE+</td>
+								<td>РќСѓР¶РЅС‹ Р»Рё РїРѕСЂС‚С‹ PoE/PoE+</td>
 								<td>$i3</td>
-								<td>Выберите PoE бюджет</td>
+								<td>Р’С‹Р±РµСЂРёС‚Рµ PoE Р±СЋРґР¶РµС‚</td>
 								<td>$i4</td>
 				</tr>
 				<tr height="50">
 								<td colspan="4" align="center">
 								<p>&nbsp;
-								<h3>Выберите дополнительные технические характеристики</h3>
+								<h3>Р’С‹Р±РµСЂРёС‚Рµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ С‚РµС…РЅРёС‡РµСЃРєРёРµ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё</h3>
 								</td>
 				</tr>
 				<tr>
-								<td>Уровень коммутации</td>
-								<td>Производительность (Гбит/с)</td>
-								<td>Пропускная способность (млн пакетов/с)</td>
-								<td>Таблица маршрутизации</td>
+								<td>РЈСЂРѕРІРµРЅСЊ РєРѕРјРјСѓС‚Р°С†РёРё</td>
+								<td>РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ (Р“Р±РёС‚/СЃ)</td>
+								<td>РџСЂРѕРїСѓСЃРєРЅР°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ (РјР»РЅ РїР°РєРµС‚РѕРІ/СЃ)</td>
+								<td>РўР°Р±Р»РёС†Р° РјР°СЂС€СЂСѓС‚РёР·Р°С†РёРё</td>
 				</tr>
 				<tr height="50">
 								<td align="center">$i5</td>
@@ -345,13 +414,14 @@ $textOut = <<<OUTs
 								<td colspan="4" align="center" style="border-top: 1px dotted #C4C9D1;">
 								<p>&nbsp;
 								<p>
-								<input type=hidden name="subject" value="подбор сетевого оборудования по параметрам">
+								<input type=hidden name="subject" value="РїРѕРґР±РѕСЂ СЃРµС‚РµРІРѕРіРѕ РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ РїРѕ РїР°СЂР°РјРµС‚СЂР°Рј">
 								<!-- <input type=hidden name=choices value=sz> -->
-								<input name="reset" type="reset" value="Сбросить"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input name="submit" type="submit" value="Подобрать!">
+								<input name="reset" type="reset" value="РЎР±СЂРѕСЃРёС‚СЊ"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input name="submit" type="submit" value="РџРѕРґРѕР±СЂР°С‚СЊ!">
 								</td>
 				</tr>
 </table>
+</div>
 </form>
 OUTs;
 print $textOut;
@@ -361,15 +431,15 @@ print $textOut;
 
 function packToChoice ( $param, $i)
 {
-	
+
 	$str = count ( $param );
 	$select_param = "\n<select name='sz[$i]'>\n";
-	$select_param .= "<option value='0' selected>не важно</option>\n";
-	
+	$select_param .= "<option value='0' selected>РЅРµ РІР°Р¶РЅРѕ</option>\n";
+
 	for ($i=0, $j=1; $i < $str; $i++, $j++ ) $select_param .= "<option value='$j'>$param[$i]</option>\n";
 
 	$select_param .= "</select>";
-	
+
 return $select_param;
 }
 
@@ -379,32 +449,34 @@ function searchFor( $choices, $netData )
 {
 
 	//.. TEST:: print "enter to searchFor()<br>\n"; print_r ($choices);
-	
+
 	$iData = count ($netData);
 	//.. TEST:: print "<br>iData=$iData<br>\n";
-	
-//.. Идем по основному массиву и построчно проверяем на удовлетворения параметрам $choices
-//.. Тело таблицы
 
-	for ( $j=0; $j < $iData; $j++){ 
+//.. РРґРµРј РїРѕ РѕСЃРЅРѕРІРЅРѕРјСѓ РјР°СЃСЃРёРІСѓ Рё РїРѕСЃС‚СЂРѕС‡РЅРѕ РїСЂРѕРІРµСЂСЏРµРј РЅР° СѓРґРѕРІР»РµС‚РІРѕСЂРµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР°Рј $choices
+//.. РўРµР»Рѕ С‚Р°Р±Р»РёС†С‹
+
+	for ( $j=0; $j < $iData; $j++){
 		if ( compareFor( $choices, $netData[$j] )) {
-			//.. TEST:: print "После compareFor()\n"; print_r ($netData[$j]);
+			//.. TEST:: print "РџРѕСЃР»Рµ compareFor()\n"; print_r ($netData[$j]);
 			$mSearch[] = $netData[$j];
 		}
 	}
 	if ( !isset($mSearch)) $mSearch[0]=0;
 	return ( $mSearch );
 }
-//.. Логика такова... Сначала проходим по всем запрошенным характеристикам и собирам по ним сведения
-//.. После сбора данных анализируем соответствует или нет срока запросу
-function compareFor( $Сhoices, $netDataString )
+//.....................................................................................................................
+//.. Р›РѕРіРёРєР° С‚Р°РєРѕРІР°... РЎРЅР°С‡Р°Р»Р° РїСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј Р·Р°РїСЂРѕС€РµРЅРЅС‹Рј С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј Рё СЃРѕР±РёСЂР°Рј РїРѕ РЅРёРј СЃРІРµРґРµРЅРёСЏ
+//.. РџРѕСЃР»Рµ СЃР±РѕСЂР° РґР°РЅРЅС‹С… Р°РЅР°Р»РёР·РёСЂСѓРµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РёР»Рё РЅРµС‚ СЃС‚СЂРѕРєР° Р·Р°РїСЂРѕСЃСѓ
+function compareFor( $РЎhoices, $netDataString )
 {
 //.....................................................
-//.. Номер и имя, уровень
+//.. РќРѕРјРµСЂ Рё РёРјСЏ, СѓСЂРѕРІРµРЅСЊ
 	$name = 1;
 	$part = 2;
 	$iLevel = 5;
-//.. Блок портов
+	$family = 6;
+//.. Р‘Р»РѕРє РїРѕСЂС‚РѕРІ
 	$c100 = 7;
 	$p100 = 8;
 	$pp100 = 9;
@@ -412,39 +484,39 @@ function compareFor( $Сhoices, $netDataString )
 	$p1k = 12;
 	$pp1k = 13;
 	$c10k = 11;
-//.. Блок СФП
+//.. Р‘Р»РѕРє РЎР¤Рџ
 	$sfp = 14;
 	$sfpdp = 15;
 	$sfpp = 16;
 	$qsfp = 17;
-//.. Блок производительность
+//.. Р‘Р»РѕРє РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ
 	$ps = 20;
 	$pk = 21;
 	$mac = 22;
 	$poew = 25;
-//..Номер столбца в котором находится имя файла Серии
+//..РќРѕРјРµСЂ СЃС‚РѕР»Р±С†Р° РІ РєРѕС‚РѕСЂРѕРј РЅР°С…РѕРґРёС‚СЃСЏ РёРјСЏ С„Р°Р№Р»Р° РЎРµСЂРёРё
 	$iImage = 29;
 //.....................................................
-//.. TEST:: print_r $netDataString; print "Вошли в compareFor()\n"; 
-	
-//.. А вот так если... беру цикл, в нем про свичу проверяю подходит или нет и если все проходит, то Гуд, нет - Бэд
+//.. TEST:: print_r $netDataString; print "Р’РѕС€Р»Рё РІ compareFor()\n";
 
-	$iСhoices = count ($Сhoices);
-	$iResult = 0; //.. Отрицательный итог
-//.. TEST:: print "<br>iСhoices=$iСhoices<br>";	print "--before cycle iResult=$iResult<br>";
-	
-	for ( $j = 0; $j < $iСhoices; $j++) {
+//.. Рђ РІРѕС‚ С‚Р°Рє РµСЃР»Рё... Р±РµСЂСѓ С†РёРєР», РІ РЅРµРј РїСЂРѕ СЃРІРёС‡Сѓ РїСЂРѕРІРµСЂСЏСЋ РїРѕРґС…РѕРґРёС‚ РёР»Рё РЅРµС‚ Рё РµСЃР»Рё РІСЃРµ РїСЂРѕС…РѕРґРёС‚, С‚Рѕ Р“СѓРґ, РЅРµС‚ - Р‘СЌРґ
+
+	$iРЎhoices = count ($РЎhoices);
+	$iResult = 0; //.. РћС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ РёС‚РѕРі
+//.. TEST:: print "<br>iРЎhoices=$iРЎhoices<br>";	print "--before cycle iResult=$iResult<br>";
+
+	for ( $j = 0; $j < $iРЎhoices; $j++) {
 		//..  print "--cycle $j";
-		//.. Это суммы по портам Медь и Оптика
-		$iSumС = $netDataString[$c100]+$netDataString[$p100]+$netDataString[$pp100]+$netDataString[$c1k]+$netDataString[$c10k]+$netDataString[$p1k]+$netDataString[$pp1k];
+		//.. Р­С‚Рѕ СЃСѓРјРјС‹ РїРѕ РїРѕСЂС‚Р°Рј РњРµРґСЊ Рё РћРїС‚РёРєР°
+		$iSumРЎ = $netDataString[$c100]+$netDataString[$p100]+$netDataString[$pp100]+$netDataString[$c1k]+$netDataString[$c10k]+$netDataString[$p1k]+$netDataString[$pp1k];
 		$iSumO = $netDataString[$sfp]+$netDataString[$sfpdp]+$netDataString[$sfpp]+$netDataString[$qsfp];
 		switch ( $j ) {
-			case 0://.. Считаем количество портов ( медь и оптика )
-				$mH0 = $Сhoices[0];
+			case 0://.. РЎС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ ( РјРµРґСЊ Рё РѕРїС‚РёРєР° )
+				$mH0 = $РЎhoices[0];
 				//..TEST:: print "<br> iSum=$iSum<br>iSumO=$iSumO<br>";
-				break; 
-			case 1://.. Считаем порты по "скоростям"
-				$mH1 = $Сhoices[1];
+				break;
+			case 1://.. РЎС‡РёС‚Р°РµРј РїРѕСЂС‚С‹ РїРѕ "СЃРєРѕСЂРѕСЃС‚СЏРј"
+				$mH1 = $РЎhoices[1];
 				$s100 = (isset ( $netDataString[$c100] ) or isset ( $netDataString[$p100] ) or isset ( $netDataString[$pp100] ))? $netDataString[$c100]+$netDataString[$p100]+$netDataString[$pp100] : 0;
 				$s1g = (isset ( $netDataString[$c1k] ) or isset ( $netDataString[$p1k] ) or isset ( $netDataString[$pp1k] ))? $netDataString[$c1k]+$netDataString[$p1k]+$netDataString[$pp1k] : 0;
 				$s10g = (isset ( $netDataString[$c10k] ) and strlen($netDataString[$c10k]) > 0)? $netDataString[$c10k]:0;
@@ -452,116 +524,120 @@ function compareFor( $Сhoices, $netDataString )
 				$ssfpp = (isset ( $netDataString[$sfpp] ) and strlen($netDataString[$sfpp]) > 0)? $netDataString[$sfpp] : 0;
 				$sqsfp = (isset ( $netDataString[$qsfp] ) and strlen($netDataString[$qsfp]) > 0)? $netDataString[$qsfp] : 0;
 				break;
-			case 2://.. Считаем порты по среде передачи данных
-				$mH2 = $Сhoices[2];
+			case 2://.. РЎС‡РёС‚Р°РµРј РїРѕСЂС‚С‹ РїРѕ СЃСЂРµРґРµ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…
+				$mH2 = $РЎhoices[2];
 				$cu = ((isset ( $netDataString[$c100] ) or isset ( $netDataString[$p100] ) or isset ( $netDataString[$pp100] )
 						or isset ( $netDataString[$c1k] ) or isset ( $netDataString[$p1k] ) or isset ( $netDataString[$pp1k] )
 						or isset ( $netDataString[$c10k] )) and
 						(strlen($netDataString[$c100] )> 0 or strlen( $netDataString[$p100] )> 0 or strlen( $netDataString[$pp100] )> 0
 						or strlen( $netDataString[$c1k] )> 0 or strlen( $netDataString[$p1k] )> 0 or strlen( $netDataString[$pp1k] )> 0
 						or strlen( $netDataString[$c10k] )> 0))? 1: 0;
-				$fb = ((isset ( $netDataString[$sfp] ) or isset ( $netDataString[$sfpdp] ) 
+				$fb = ((isset ( $netDataString[$sfp] ) or isset ( $netDataString[$sfpdp] )
 						or isset ( $netDataString[$sfpp] ) or isset ( $netDataString[$qsfp] )) and
-						((strlen( $netDataString[$sfp] )> 0 or strlen( $netDataString[$sfpdp] )> 0 
+						((strlen( $netDataString[$sfp] )> 0 or strlen( $netDataString[$sfpdp] )> 0
 						or strlen( $netDataString[$sfpp] )> 0 or strlen( $netDataString[$qsfp] )> 0)))? 1: 0;
-						
+
 				//.. TEST:: $tName=$netDataString[$part]; print "$tName=$cu=$fb=<br>";
 				break;
-			case 3://.. Нужно PoE?
-				$mH3 = $Сhoices[3];
-				$poe = ( (isset ( $netDataString[$pp100]) or isset ( $netDataString[$pp1k] )) and 
+			case 3://.. РќСѓР¶РЅРѕ PoE?
+				$mH3 = $РЎhoices[3];
+				$poe = ( (isset ( $netDataString[$pp100]) or isset ( $netDataString[$pp1k] )) and
 						(strlen( $netDataString[$pp100])>0 or strlen( $netDataString[$pp1k] )>0) )? 1:0;
 				break;
-			case 4://.. Какой PoE бюджет?
-				$mH4 = $Сhoices[4];
+			case 4://.. РљР°РєРѕР№ PoE Р±СЋРґР¶РµС‚?
+				$mH4 = $РЎhoices[4];
 				$hpoew = ( isset ( $netDataString[$poew]) )? $netDataString[$poew]: 0;
 				break;
-			case 5://.. Уровень коммутации
-				$mH5 = $Сhoices[5];
+			case 5://.. РЈСЂРѕРІРµРЅСЊ РєРѕРјРјСѓС‚Р°С†РёРё
+				$mH5 = $РЎhoices[5];
 				$level = (isset ( $netDataString[$iLevel] ) and strlen ($netDataString[$iLevel])>0 )? $netDataString[$iLevel]:0;
 				break;
-			case 6://.. Производительность
-				$mH7 = $Сhoices[7];
+			case 6://.. РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ
+				$mH7 = $РЎhoices[7];
 				$hpk = (isset ( $netDataString[$pk] ))? $netDataString[$pk]:0;
 				break;
-			case 7://.. Пропускная способность
-				$mH8 = $Сhoices[8];
+			case 7://.. РџСЂРѕРїСѓСЃРєРЅР°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+				$mH8 = $РЎhoices[8];
 				$hps = (isset ( $netDataString[$ps] ))? $netDataString[$ps]:0;
 				break;
-			case 8://.. Таблица МАС
-				$mH6 = $Сhoices[6];
+			case 8://.. РўР°Р±Р»РёС†Р° РњРђРЎ
+				$mH6 = $РЎhoices[6];
 				$hmac = (isset ( $netDataString[$mac] ) and strlen ($netDataString[$mac])>0 )? $netDataString[$mac]:0;
+				break;
+			case 9://.. РќРµС‚ Р±Р»РѕРєР° РїРёС‚Р°РЅРёСЏ!
+				$noPS = 24;
+				return ( strcmp ($Series, $netDataString[$noPS]) );
 				break;
 		}
 	}
 //.......................................................................................
 //.......................................................................................
-//.. Аналитическая часть.
-//..	Ничего не выбрано
+//.. РђРЅР°Р»РёС‚РёС‡РµСЃРєР°СЏ С‡Р°СЃС‚СЊ.
+//..	РќРёС‡РµРіРѕ РЅРµ РІС‹Р±СЂР°РЅРѕ
 		if ( !($mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)){
-			return ($iResult = 1); //..... Выводим ВСЁ!
+			return ($iResult = 1); //..... Р’С‹РІРѕРґРёРј Р’РЎРЃ!
 		}
-//.. Выбран только один параметр
-//.. Количество портов
-		if ( $mH0 and (!( $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byPortsOnly ( $Сhoices[0], $iSumС, $iSumO )) return (0);
-//.. Скорость портов
-		if ( $mH1 and (!( $mH0 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
-//.. Среда передачи данных
-		if ( $mH2 and (!( $mH0 or $mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = bySredaOnly ( $Сhoices[2], $cu, $fb )) return (0);
+//.. Р’С‹Р±СЂР°РЅ С‚РѕР»СЊРєРѕ РѕРґРёРЅ РїР°СЂР°РјРµС‚СЂ
+//.. РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ
+		if ( $mH0 and (!( $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = byPortsOnly ( $РЎhoices[0], $iSumРЎ, $iSumO )) return (0);
+//.. РЎРєРѕСЂРѕСЃС‚СЊ РїРѕСЂС‚РѕРІ
+		if ( $mH1 and (!( $mH0 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = bySpeedOnly ( $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
+//.. РЎСЂРµРґР° РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…
+		if ( $mH2 and (!( $mH0 or $mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = bySredaOnly ( $РЎhoices[2], $cu, $fb )) return (0);
 //.. PoE
-		if ( $mH3 and (!( $mH0 or $mH1 or $mH2 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
+		if ( $mH3 and (!( $mH0 or $mH1 or $mH2 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) )
 				if ( !$iResult = $poe) return (0);
-//.. бюджет PoE
-		if ( $mH4 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byPoeBudgetOnly ( $Сhoices[4], $hpoew )) return (0);
-//.. Уровень коммутации
-		if ( $mH5 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byLevelOnly ( $Сhoices[5], $level )) return (0);
-//.. Производительность
-		if ( $mH6 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byPkOnly ( $Сhoices[6], $hpk )) return (0);
-//.. Пропускная способность
-		if ( $mH7 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH8)) ) 
-				if ( !$iResult = byPsOnly ( $Сhoices[7], $hps )) return (0);
-//.. Таблица коммутации
-		if ( $mH8 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7)) ) 
-				if ( !$iResult = byMACOnly ( $Сhoices[8], $hmac )) return (0);
+//.. Р±СЋРґР¶РµС‚ PoE
+		if ( $mH4 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH5 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = byPoeBudgetOnly ( $РЎhoices[4], $hpoew )) return (0);
+//.. РЈСЂРѕРІРµРЅСЊ РєРѕРјРјСѓС‚Р°С†РёРё
+		if ( $mH5 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = byLevelOnly ( $РЎhoices[5], $level )) return (0);
+//.. РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ
+		if ( $mH6 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH7 or $mH8)) )
+				if ( !$iResult = byPkOnly ( $РЎhoices[6], $hpk )) return (0);
+//.. РџСЂРѕРїСѓСЃРєРЅР°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+		if ( $mH7 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH8)) )
+				if ( !$iResult = byPsOnly ( $РЎhoices[7], $hps )) return (0);
+//.. РўР°Р±Р»РёС†Р° РєРѕРјРјСѓС‚Р°С†РёРё
+		if ( $mH8 and (!( $mH0 or $mH1 or $mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7)) )
+				if ( !$iResult = byMACOnly ( $РЎhoices[8], $hmac )) return (0);
 //.......................................................................................
-//.. Если выбрано 2 параметра из первых СВОДНЫХ ( тех которые нужно обязательно считать)
-//.. Количество портов и скорость на портах
-		if ( $mH0 and $mH1 and (!($mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byPortsSpeed ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
+//.. Р•СЃР»Рё РІС‹Р±СЂР°РЅРѕ 2 РїР°СЂР°РјРµС‚СЂР° РёР· РїРµСЂРІС‹С… РЎР’РћР”РќР«РҐ ( С‚РµС… РєРѕС‚РѕСЂС‹Рµ РЅСѓР¶РЅРѕ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ СЃС‡РёС‚Р°С‚СЊ)
+//.. РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ Рё СЃРєРѕСЂРѕСЃС‚СЊ РЅР° РїРѕСЂС‚Р°С…
+		if ( $mH0 and $mH1 and (!($mH2 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = byPortsSpeed ( $РЎhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )) return (0);
 //.......................................................................................
-//.. Количество портов и среда передачи
-		if ( $mH0 and $mH2 and (!($mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) ) 
-				if ( !$iResult = byPortsSreda ( $Сhoices, $iSumС, $iSumO )) return (0);
+//.. РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ Рё СЃСЂРµРґР° РїРµСЂРµРґР°С‡Рё
+		if ( $mH0 and $mH2 and (!($mH1 or $mH3 or $mH4 or $mH5 or $mH6 or $mH7 or $mH8)) )
+				if ( !$iResult = byPortsSreda ( $РЎhoices, $iSumРЎ, $iSumO )) return (0);
 //.......................................................................................
 //.......................................................................................
-//.. мы проверяем по одному ИЗ параметров и получается что мы смотрим если их несколько...
-//.. По количеству портов соответствует?
+//.. РјС‹ РїСЂРѕРІРµСЂСЏРµРј РїРѕ РѕРґРЅРѕРјСѓ РР— РїР°СЂР°РјРµС‚СЂРѕРІ Рё РїРѕР»СѓС‡Р°РµС‚СЃСЏ С‡С‚Рѕ РјС‹ СЃРјРѕС‚СЂРёРј РµСЃР»Рё РёС… РЅРµСЃРєРѕР»СЊРєРѕ...
+//.. РџРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїРѕСЂС‚РѕРІ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚?
 //.. TEST
 		$iResult = 1;
-		//..TEST:: print "$netDataString[2]>iSumС=$iSumС/iSumO=$iSumO/$s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp/$cu, $fb/hpoew=$hpoew/$level=?$mH5/hpk=$hpk/hps=$hps/hmac=$hmac/<br>";
-		if ( $iResult and $mH0 ) if( !byPortsOnly( $Сhoices[0], $iSumС, $iSumO ) ) return(0);
+		//..TEST:: print "$netDataString[2]>iSumРЎ=$iSumРЎ/iSumO=$iSumO/$s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp/$cu, $fb/hpoew=$hpoew/$level=?$mH5/hpk=$hpk/hps=$hps/hmac=$hmac/<br>";
+		if ( $iResult and $mH0 ) if( !byPortsOnly( $РЎhoices[0], $iSumРЎ, $iSumO ) ) return(0);
 		//print "after 0<br>";
-		if ( $iResult and $mH1 ) if( !bySpeedOnly ( $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ) return(0);
+		if ( $iResult and $mH1 ) if( !bySpeedOnly ( $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ) return(0);
 		//print "after 1<br>";
-		if ( $iResult and $mH2 ) if( !bySredaOnly ( $Сhoices[2], $cu, $fb )) return(0);
+		if ( $iResult and $mH2 ) if( !bySredaOnly ( $РЎhoices[2], $cu, $fb )) return(0);
 		//print "after 2<br>";
 		if ( $iResult and $mH3 ) if( !$poe ) return(0);
 		//print "after 3<br>";
-		if ( $iResult and $mH4 ) if( !byPoeBudgetOnly ( $Сhoices[4], $hpoew )) return(0);
+		if ( $iResult and $mH4 ) if( !byPoeBudgetOnly ( $РЎhoices[4], $hpoew )) return(0);
 		//print "after 4<br>";
-		if ( $iResult and $mH5 ) if( !byLevelOnly ( $Сhoices[5], $level )) return(0);
+		if ( $iResult and $mH5 ) if( !byLevelOnly ( $РЎhoices[5], $level )) return(0);
 		//print "after 5<br>";
-		if ( $iResult and $mH6 ) if ( !byPkOnly ( $Сhoices[6], $hpk )) return(0);
+		if ( $iResult and $mH6 ) if ( !byPkOnly ( $РЎhoices[6], $hpk )) return(0);
 		//print "after 6<br>";
-		if ( $iResult and $mH7 ) if ( !byPsOnly ( $Сhoices[7], $hps )) return(0);
+		if ( $iResult and $mH7 ) if ( !byPsOnly ( $РЎhoices[7], $hps )) return(0);
 		//print "after 7<br>";
-		if ( $iResult and $mH8 ) if ( !byMACOnly ( $Сhoices[8], $hmac )) return(0);
+		if ( $iResult and $mH8 ) if ( !byMACOnly ( $РЎhoices[8], $hmac )) return(0);
 		//print "after 8<br>";
 
 //.......................................................................................
@@ -571,33 +647,34 @@ return ( $iResult );
 //.......................................................................................
 
 //...........................................................................................................................
-//.. Функции определяющие удовлетворяем мы параметрам или нет...
-//.. По количеству портов 0 - нет нужных портов: 1 - нашли!
-function byPortsOnly ( $Сhoices, $iSumС, $iSumO )
+//.. Р¤СѓРЅРєС†РёРё РѕРїСЂРµРґРµР»СЏСЋС‰РёРµ СѓРґРѕРІР»РµС‚РІРѕСЂСЏРµРј РјС‹ РїР°СЂР°РјРµС‚СЂР°Рј РёР»Рё РЅРµС‚...
+//.. РџРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїРѕСЂС‚РѕРІ 0 - РЅРµС‚ РЅСѓР¶РЅС‹С… РїРѕСЂС‚РѕРІ: 1 - РЅР°С€Р»Рё!
+//.. 13.09.2018 Р’РЅРµСЃРµРЅРѕ РёР·РјРµРЅРµРЅРёРµ РІ РїСЂРѕРІРµСЂСЏРµРјРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ ( СЌС‚Рѕ РҐРђРљ :: РјС‹ РёС‰РµРј С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј С‡С‚РѕР±С‹ РЅР°Р№С‚Рё РІСЃРµ РІРІРµРґРµРЅРЅС‹Рµ РєРѕРјРјСѓС‚Р°С‚РѕСЂРѕРІ
+function byPortsOnly ( $РЎhoices, $iSumРЎ, $iSumO )
 {
-		switch ( $Сhoices ){
-			case 0: return (1); //.. Результат не важен или "нашли!"
-			case 1: if ( $iSumС == 5 or $iSumO == 5) return (1);
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. Р РµР·СѓР»СЊС‚Р°С‚ РЅРµ РІР°Р¶РµРЅ РёР»Рё "РЅР°С€Р»Рё!"
+			case 1: if ( $iSumРЎ == 5 or $iSumO == 5) return (1);
 				break;
-			case 2: if ( ($iSumС >= 8 && $iSumС <=10) or ($iSumO >= 8 && $iSumO <=10)) return (1);
+			case 2: if ( ($iSumРЎ >= 6 && $iSumРЎ <=15) or ($iSumO >= 6 && $iSumO <=15)) return (1);
 				break;
-			case 3: if ( ($iSumС >= 16 && $iSumС <=20) or ($iSumO >= 16 && $iSumO <=20) ) return (1);
+			case 3: if ( ($iSumРЎ >= 16 && $iSumРЎ <=23) or ($iSumO >= 16 && $iSumO <=23) ) return (1);
 				break;
-			case 4: if ( ($iSumС >= 24 && $iSumС <=28) or ($iSumO >= 24 && $iSumO <=28)) return (1);
+			case 4: if ( ($iSumРЎ >= 24 && $iSumРЎ <=47) or ($iSumO >= 24 && $iSumO <=47)) return (1);
 				break;
-			case 5: if ( ($iSumС >= 48 && $iSumС <=52) or ($iSumO >= 48 && $iSumO <=52)) return (1);
+			case 5: if ( ($iSumРЎ >= 48 && $iSumРЎ <=52) or ($iSumO >= 48 && $iSumO <=52)) return (1);
 				break;
-			case 6: if ( ($iSumС > 52) or ($iSumO > 52) ) return (1);
+			case 6: if ( ($iSumРЎ > 52) or ($iSumO > 52) ) return (1);
 				break;
 		}
 return ( 0 );
 }
 //...........................................................................................................................
-//.. По скорости портов 0 - нет нужных портов: 1 - нашли!
-function bySpeedOnly ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
+//.. РџРѕ СЃРєРѕСЂРѕСЃС‚Рё РїРѕСЂС‚РѕРІ 0 - РЅРµС‚ РЅСѓР¶РЅС‹С… РїРѕСЂС‚РѕРІ: 1 - РЅР°С€Р»Рё!
+function bySpeedOnly ( $РЎhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
 {
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( $s100 > 0 ) return (1);
 				break;
 			case 2: if ( $s1g+$ssfp > 0 ) return (1);
@@ -610,11 +687,11 @@ function bySpeedOnly ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
 return ( 0 );
 }
 //...........................................................................................................................
-//.. По среде 0 - нет нужных портов: 1 - нашли!
-function bySredaOnly ( $Сhoices, $cu, $fb )
+//.. РџРѕ СЃСЂРµРґРµ 0 - РЅРµС‚ РЅСѓР¶РЅС‹С… РїРѕСЂС‚РѕРІ: 1 - РЅР°С€Р»Рё!
+function bySredaOnly ( $РЎhoices, $cu, $fb )
 {
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( $cu ) return (1);
 				break;
 			case 2: if ( $fb ) return (1);
@@ -623,11 +700,11 @@ function bySredaOnly ( $Сhoices, $cu, $fb )
 return ( 0 );
 }
 //...........................................................................................................................
-//.. По PoE бюджету 0 - нет нужных портов: 1 - нашли!
-function byPoeBudgetOnly ( $Сhoices, $hpoew )
+//.. РџРѕ PoE Р±СЋРґР¶РµС‚Сѓ 0 - РЅРµС‚ РЅСѓР¶РЅС‹С… РїРѕСЂС‚РѕРІ: 1 - РЅР°С€Р»Рё!
+function byPoeBudgetOnly ( $РЎhoices, $hpoew )
 {
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( $hpoew > 0 and $hpoew <= 124 ) return (1);
 				break;
 			case 2: if ( $hpoew > 124 and $hpoew <= 382 ) return (1);
@@ -638,10 +715,10 @@ function byPoeBudgetOnly ( $Сhoices, $hpoew )
 return ( 0 );
 }
 //...........................................................................................................................
-function byLevelOnly ( $Сhoices, $level )
+function byLevelOnly ( $РЎhoices, $level )
 {
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( preg_match( "/2/i", $level) ) return (1);
 				break;
 			case 2: if ( preg_match( "/3 Lite/i", $level) ) return (1);
@@ -654,13 +731,13 @@ function byLevelOnly ( $Сhoices, $level )
 return ( 0 );
 }
 //...........................................................................................................................
-//.. Производительность
-function byPkOnly ( $Сhoices, $hpk )
+//.. РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ
+function byPkOnly ( $РЎhoices, $hpk )
 {
-//..TEST::print "Сhoices=$Сhoices//hpk=$hpk<br>";
-		
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+//..TEST::print "РЎhoices=$РЎhoices//hpk=$hpk<br>";
+
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( $hpk > 0 and $hpk <= 20 ) return (1);
 				break;
 			case 2: if ( $hpk > 20 and $hpk <= 80 ) return (1);
@@ -677,13 +754,13 @@ function byPkOnly ( $Сhoices, $hpk )
 return ( 0 );
 }
 //...........................................................................................................................
-//.. Пропускная способность
-function byPsOnly ( $Сhoices, $hps )
+//.. РџСЂРѕРїСѓСЃРєРЅР°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+function byPsOnly ( $РЎhoices, $hps )
 {
-//..TEST::print "Сhoices=$Сhoices//hps=$hps<br>";
-		
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+//..TEST::print "РЎhoices=$РЎhoices//hps=$hps<br>";
+
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( $hps > 0 and $hps <= 10 ) return (1);
 				break;
 			case 2: if ( $hps > 10 and $hps <= 50 ) return (1);
@@ -696,13 +773,13 @@ function byPsOnly ( $Сhoices, $hps )
 return ( 0 );
 }
 //...........................................................................................................................
-//.. Таблица МАС
-function byMACOnly ( $Сhoices, $hmac )
+//.. РўР°Р±Р»РёС†Р° РњРђРЎ
+function byMACOnly ( $РЎhoices, $hmac )
 {
 //..TEST::print "hmac=$hmac<br>";
-		
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО
+
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ
 			case 1: if ( $hmac > 0 and $hmac <= 8192 ) return (1);
 				break;
 			case 2: if ( $hmac > 8192 and $hmac <= 16384 ) return (1);
@@ -714,32 +791,34 @@ return ( 0 );
 }
 //...........................................................................................................................
 //...........................................................................................................................
-//.. По количеству портов 0 - нет нужных портов: 1 - нашли!
-function byPortsSpeed ( $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
+//.. РџРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїРѕСЂС‚РѕРІ 0 - РЅРµС‚ РЅСѓР¶РЅС‹С… РїРѕСЂС‚РѕРІ: 1 - РЅР°С€Р»Рё!
+
+function byPortsSpeed ( $РЎhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
 {
-//.. ТЕСТ::print "\r\n1/$Сhoices[1]/ $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp /<br>";
-		switch ( $Сhoices[0] ){
-			case 0: return (1); //.. НЕВЕРОЯТНО!!!! 
-			case 1:  return ( byPortsSpeedTest( 5,5, $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. Портов 5
+//.. РўР•РЎРў::print "\r\n1/$РЎhoices[1]/ $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp /<br>";
+		switch ( $РЎhoices[0] ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ!!!!
+			case 1:  return ( byPortsSpeedTest( 5,5, $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. РџРѕСЂС‚РѕРІ 5
 				break;
-			case 2: return ( byPortsSpeedTest( 8, 10, $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. Портов 8-10
+			case 2: return ( byPortsSpeedTest( 6, 15, $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. РџРѕСЂС‚РѕРІ 8-10
 				break;
-			case 3: return ( byPortsSpeedTest( 16, 20, $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. Портов 16-20
+			case 3: return ( byPortsSpeedTest( 16, 23, $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. РџРѕСЂС‚РѕРІ 16-20
 				break;
-			case 4: return ( byPortsSpeedTest( 24, 28, $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. Портов 24-28
+			case 4: return ( byPortsSpeedTest( 24, 47, $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. РџРѕСЂС‚РѕРІ 24-28
 				break;
-			case 5: return ( byPortsSpeedTest( 48, 52, $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. Портов 48-52
+			case 5: return ( byPortsSpeedTest( 48, 52, $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. РџРѕСЂС‚РѕРІ 48-52
 				break;
-			case 6: return ( byPortsSpeedTest( 52, 100, $Сhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. Портов >52
+			case 6: return ( byPortsSpeedTest( 52, 100, $РЎhoices[1], $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp ) ); //.. РџРѕСЂС‚РѕРІ >52
 				break;
 		}
 return ( 0 );
 }
-function byPortsSpeedTest( $begin, $end, $Сhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
+function byPortsSpeedTest( $begin, $end, $РЎhoices, $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp )
 {
-//.. ТЕСТ::print "\r\n2/$Сhoices/ $s100, $s1g, $s10g, $ssfp, $ssfpp, $sqsfp /$begin, $end,/<br>";
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО!!!! 
+//.. РўР•РЎРў::!!print "\r\n 2/byPortsSpeedTest::$РЎhoices/ [$s100], [$s1g], <b>[$s10g]</b>, [$ssfp], [$ssfpp], [$sqsfp] /$begin, $end,/<br>";
+
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ!!!!
 			case 1: if ( $s100 >= $begin && $s100 <= $end ) return (1);
 				break;
 			case 2: if ( $s1g+$ssfp >= $begin && $s1g+$ssfp <= $end ) return (1);
@@ -752,33 +831,34 @@ function byPortsSpeedTest( $begin, $end, $Сhoices, $s100, $s1g, $s10g, $ssfp, $s
 return ( 0 );
 }
 //.......................................................................................
-//.. По количеству портов и нужной среды 0 - нет нужных портов: 1 - нашли!
-function byPortsSreda ( $Сhoices, $iSumС, $iSumO )
+//.. РџРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїРѕСЂС‚РѕРІ Рё РЅСѓР¶РЅРѕР№ СЃСЂРµРґС‹ 0 - РЅРµС‚ РЅСѓР¶РЅС‹С… РїРѕСЂС‚РѕРІ: 1 - РЅР°С€Р»Рё!
+function byPortsSreda ( $РЎhoices, $iSumРЎ, $iSumO )
 {
-//.. ТЕСТ::print "\r\n1/$Сhoices[2]/ $iSumС, $iSumO /<br>";
-		switch ( $Сhoices[0] ){
-			case 0: return (1); //.. НЕВЕРОЯТНО!!!! 
-			case 1:  return ( byPortsSredaTest( 1,5, $Сhoices[2], $iSumС, $iSumO ) ); //.. Портов 5
+//.. РўР•РЎРў::print "\r\n1/$РЎhoices[2]/ $iSumРЎ, $iSumO /<br>";
+		switch ( $РЎhoices[0] ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ!!!!
+			case 1:  return ( byPortsSredaTest( 1,5, $РЎhoices[2], $iSumРЎ, $iSumO ) ); //.. РџРѕСЂС‚РѕРІ 5
 				break;
-			case 2: return ( byPortsSredaTest( 8, 10, $Сhoices[2], $iSumС, $iSumO ) ); //.. Портов 8-10
+			case 2: return ( byPortsSredaTest( 8, 15, $РЎhoices[2], $iSumРЎ, $iSumO ) ); //.. РџРѕСЂС‚РѕРІ 8-10
 				break;
-			case 3: return ( byPortsSredaTest( 16, 20, $Сhoices[2], $iSumС, $iSumO ) ); //.. Портов 16-20
+			case 3: return ( byPortsSredaTest( 16, 23, $РЎhoices[2], $iSumРЎ, $iSumO ) ); //.. РџРѕСЂС‚РѕРІ 16-20
 				break;
-			case 4: return ( byPortsSredaTest( 24, 28, $Сhoices[2], $iSumС, $iSumO ) ); //.. Портов 24-28
+			case 4: return ( byPortsSredaTest( 24, 47, $РЎhoices[2], $iSumРЎ, $iSumO ) ); //.. РџРѕСЂС‚РѕРІ 24-28
 				break;
-			case 5: return ( byPortsSredaTest( 48, 52, $Сhoices[2], $iSumС, $iSumO ) ); //.. Портов 48-52
+			case 5: return ( byPortsSredaTest( 48, 52, $РЎhoices[2], $iSumРЎ, $iSumO ) ); //.. РџРѕСЂС‚РѕРІ 48-52
 				break;
-			case 6: return ( byPortsSredaTest( 52, 100, $Сhoices[2], $iSumС, $iSumO ) ); //.. Портов >52
+			case 6: return ( byPortsSredaTest( 52, 100, $РЎhoices[2], $iSumРЎ, $iSumO ) ); //.. РџРѕСЂС‚РѕРІ >52
 				break;
 		}
 return ( 0 );
 }
-function byPortsSredaTest ( $begin, $end, $Сhoices, $iSumС, $iSumO )
+//.......................................................................................
+function byPortsSredaTest ( $begin, $end, $РЎhoices, $iSumРЎ, $iSumO )
 {
-//.. ТЕСТ::print "\r\n2/$Сhoices/ $iSumС, $iSumO /<br>";
-		switch ( $Сhoices ){
-			case 0: return (1); //.. НЕВЕРОЯТНО!!!! 
-			case 1: if ( $iSumС >= $begin && $iSumС <= $end ) return (1);
+//.. РўР•РЎРў::print "\r\n2/$РЎhoices/ $iSumРЎ, $iSumO /<br>";
+		switch ( $РЎhoices ){
+			case 0: return (1); //.. РќР•Р’Р•Р РћРЇРўРќРћ!!!!
+			case 1: if ( $iSumРЎ >= $begin && $iSumРЎ <= $end ) return (1);
 				break;
 			case 2: if ( $iSumO >= $begin && $iSumO <= $end ) return (1);
 				break;
@@ -787,15 +867,17 @@ return ( 0 );
 }
 //.......................................................................................
 //.......................................................................................
-//.. Вывод результатов, аналогично tableOut, но в сокращенном виде
+//.. Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ, Р°РЅР°Р»РѕРіРёС‡РЅРѕ tableOut, РЅРѕ РІ СЃРѕРєСЂР°С‰РµРЅРЅРѕРј РІРёРґРµ
+//.. РґРѕР±Р°РІР»РµРЅРѕ 9-11-16: Р’С‹Р·РѕРІ РґР°Р¶Рµ С‚РµС… СЃС‚СЂР°РЅРёС† РєРѕС‚РѕСЂС‹Рµ РЅРµ РёРјРµСЋС‚ РѕРїРёСЃР°РЅРёСЏ - РІС‹РІРѕРґРёРј С‚РѕР»СЊРєРѕ РёС… С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё
 function searchOut( $top, $netData, $choices )
 {
 //.....................................................
-//.. Номер и имя
+//.. РќРѕРјРµСЂ Рё РёРјСЏ
 	$name = 1;
 	$part = 2;
 	$fullName = 3;
-//.. Блок портов
+	$family = 6;
+//.. Р‘Р»РѕРє РїРѕСЂС‚РѕРІ
 	$c100 = 7;
 	$p100 = 8;
 	$pp100 = 9;
@@ -803,23 +885,87 @@ function searchOut( $top, $netData, $choices )
 	$p1k = 12;
 	$pp1k = 13;
 	$c10k = 11;
-//.. Блок СФП
+//.. Р‘Р»РѕРє РЎР¤Рџ
 	$sfp = 14;
 	$sfpdp = 15;
 	$sfpp = 16;
 	$qsfp = 17;
-//.. Блок производительность
+//.. Р‘Р»РѕРє РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ
 	$ps = 20;
 	$pk = 21;
 	$mac = 22;
 	$poew = 25;
-//..Номер столбца в котором находится имя файла Серии
+//..РќРѕРјРµСЂ СЃС‚РѕР»Р±С†Р° РІ РєРѕС‚РѕСЂРѕРј РЅР°С…РѕРґРёС‚СЃСЏ РёРјСЏ С„Р°Р№Р»Р° РЎРµСЂРёРё
 	$iImageProduct = 28;
 	$iImage = 29;
+	$iPHP = 31; 
 //.....................................................
+	$imageRoot ="http://". $_SERVER["SERVER_NAME"];
+	$imageFile = $_SERVER["DOCUMENT_ROOT"];
+//=====================================================<><><>
+	$pNumPorts = array( "5", "8-10", "16-20", "24-28","48-52", "Р±РѕР»СЊС€Рµ 52");
+	$pPorts = array( "10/100", "100/1GbE", "1GbE/10GbE", "40GbE");
+//	$pSreda = array( "РІРёС‚Р°СЏ РїР°СЂР°", "РѕРїС‚РёРєР°"); //12-5-17
+	$pSreda = array( "РІРёС‚Р°СЏ РїР°СЂР° РёР»Рё РІРёС‚Р°СЏ РїР°СЂР°+РѕРїС‚РёРєР°", "РѕРїС‚РёРєР° РёР»Рё РѕРїС‚РёРєР°+РІРёС‚Р°СЏ РїР°СЂР°");	
+	$pPOEbudget = array( "РґРѕ 124W", "РґРѕ 382W", "РІС‹С€Рµ 382W");
+	$pLevel = array( "2", "3 Lite", "3 Dynamic", "3 Advanced");
+	$pMAC = array( "РґРѕ 8192", "РґРѕ 16384", "РґРѕ 32768");
+	$pProizv = array( "РґРѕ 20", "РѕС‚ 20 РґРѕ 80", "РѕС‚ 80 РґРѕ 200", "РѕС‚ 200 РґРѕ 550", "РѕС‚ 550 РґРѕ 1000", "РѕС‚ 1000 РґРѕ 2000");
+	$pPropusk = array( "РґРѕ 10", "РґРѕ 50", "РґРѕ 100", "РґРѕ 250");	
+//=====================================================<><><>
+//.. Р’С‹РІРѕРґ: РїРѕ РєР°РєРёРј РїР°СЂР°РјРµС‚СЂР°Рј РїРѕРґР±РёСЂР°Р»Рё
+	
+	$sOut = "<h3>РњС‹ РїРѕРґРіРѕС‚РѕРІРёР»Рё РІС‹РґР°С‡Сѓ РїРѕ СЃР»РµРґСѓСЋС‰РёРј РІС‹Р±СЂР°РЅРЅС‹Рј Р’Р°РјРё РїР°СЂР°РјРµС‚СЂР°Рј:</h3><br>";
 
-//.. Вывод заголовка таблицы
+	if ($choices[0]){
+		$out = $pNumPorts[$choices[0]-1];
+		$sOut .= "РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ: <b>$out</b><br>";
+	}
+	if ($choices[1]){
+		$out = $pPorts[$choices[1]-1];
+		$sOut .= "РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…: <b>$out</b><br>";
+	}
+	if ($choices[2]){
+		$out = $pSreda[$choices[2]-1];
+		$sOut .= "РЎСЂРµРґР° РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…: <b>$out</b><br>";
+	}
+	if ($choices[3]){
+		$sOut .= "РќР°Р»РёС‡РёРµ РїРѕСЂС‚РѕРІ PoE/PoE+<br>";
+	}
+	if ($choices[4]){
+		$out = $pPOEbudget[$choices[4]-1];
+		$sOut .= "Р‘СЋРґР¶РµС‚ PoE/PoE+: <b>$out</b><br>";
+	}
+	if ($choices[5]){
+		$out = $pLevel[$choices[5]-1];
+		$sOut .= "РЈСЂРѕРІРµРЅСЊ РєРѕРјРјСѓС‚Р°С†РёРё: <b>$out</b><br>";
+	}
+	if ($choices[6]){
+		$out = $pProizv[$choices[6]]-1;
+		$sOut .= "РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ (Р“Р±РёС‚/СЃ): <b>$out</b><br>";
+	}
+	if ($choices[7]){
+		$out = $pPropusk[$choices[7]-1];
+		$sOut .= "РџСЂРѕРїСѓСЃРєРЅР°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ (РјР»РЅ РїР°РєРµС‚РѕРІ/СЃ): <b>$out</b><br>";
+	}
+	if ($choices[8]){
+		$out = $pMAC[$choices[8]-1];
+		$sOut .= "РўР°Р±Р»РёС†Р° РјР°СЂС€СЂСѓС‚РёР·Р°С†РёРё: <b>$out</b><br>";
+	}
+	if ($choices[9]){
+		$sOut .= "РљРѕРјРјСѓС‚Р°С‚РѕСЂС‹ СЃ <b>РїР°СЃСЃРёРІРЅС‹Рј</b> РѕС…Р»Р°Р¶РґРµРЅРёРµРј<br>";
+	}
+	print "$sOut";
+
+	
+//.. РџР•С‡РµС‚СЊ "СЂРµРєР»Р°РјР°"
+print "<br>\r\n";
+print_reclama();
+print "<br>\r\n";
+
+//.. Р’С‹РІРѕРґ Р·Р°РіРѕР»РѕРІРєР° С‚Р°Р±Р»РёС†С‹
 $textOut = <<<OUTs
+
 <table style="padding: 10px 0 10px; border-radius: 10px; background-color: #F0F8FF; border: 1px dotted #C4C9D1; color: #0b3d91;">
 <tr style="background: #ace7f2;">
 	<td>&nbsp;</td>
@@ -829,72 +975,103 @@ $textOut = <<<OUTs
 OUTs;
 print $textOut;
 
-//.. Тело таблицы
+//.. РўРµР»Рѕ С‚Р°Р±Р»РёС†С‹
 	$iData = count ($netData);
 	$Series = $netData[0][0];
 	$ImageSeries = $netData[0][$iImage];
+	$PHPFL = $netData[0][$iPHP];
 
-	if ( strlen ($ImageSeries) > 1 && file_exists("image/".$ImageSeries) ) 
-			$iImages = "<img src=\"image/$ImageSeries\" alt=\"$Series\" border=\"0\" height=\"100\" style=\"vertical-align: middle;\" />";
+	if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) )
+			$iImages = "<img src=\"$imageRoot/request/image/$ImageSeries\" alt=\"$Series\" border=\"0\" height=\"100\" style=\"vertical-align: middle;\" />";
 		else $iImages = "";
-	
+//..TEST::print "--$iImages---<br>";
+
+	if ( strlen ($PHPFL) > 1 && file_exists( $imageFile."/vendors/hp/hp-procurve-switch/".$PHPFL)) {
+		$ihref = "<a href='$imageRoot/vendors/hp/hp-procurve-switch/$PHPFL' target='_blank'>$Series</a>";
+	} else {
+		if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) ){
+			//.. СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёРµ 4Рµ СЃРёРјРІРѕР»Р° .png
+			$FLi = substr( $ImageSeries, 0, -4 );
+			$ihref = "<a href='$imageRoot/vendors/hp/hp-procurve-switch/hpe_networks.php?$FLi' target='_blank'>$Series</a>";
+		} else $ihref = "$Series";
+	}
 $textOut = <<<OUTs
+
 <tr height="50">
-	<td colspan="3" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;">$iImages<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+	<td colspan="3" style="text-align: center; border-top: 1px solid; border-bottom: 1px dotted;">$iImages<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ihref</b></td>
 </tr>
 OUTs;
-
-print $textOut;	
 	
+print $textOut;
+
 	for ( $j=0, $k=0; $j < $iData; $j++){
-		//.. Проверяем изменилась ли "серия" коммутаторов или нет
+		//.. РџСЂРѕРІРµСЂСЏРµРј РёР·РјРµРЅРёР»Р°СЃСЊ Р»Рё "СЃРµСЂРёСЏ" РєРѕРјРјСѓС‚Р°С‚РѕСЂРѕРІ РёР»Рё РЅРµС‚
 		if ( strcmp ($Series, $netData[$j][0]) ){
-			
+
 			$Series = $netData[$j][0];
 			$ImageSeries = $netData[$j][$iImage];
+
+			$k=0; //... Р­С‚Рѕ РґР»СЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ С†РІРµС‚Р° РїРѕР»РѕСЃРєРё!
 			
-			$k=0; //... Это для переключения цвета полоски!
+			//.. Р•СЃР»Рё РµСЃС‚СЊ С„Р°Р№Р» СЃ С‚РµРєСЃС‚РѕРј, С‚Рѕ РјС‹ С„РѕСЂРјРёСЂСѓРµРј СЃСЃС‹Р»РєСѓ РІ РёРјРµРЅРё
+			$PHPFL = $netData[$j][$iPHP];
+			//$ll=$netData[$j][$iPHP-1];$rr=$netData[$j][$iPHP+1];print "ll=$ll//PHPFL=$PHPFL//rr=$rr<br>";
+			$Series2 = $Series;
+			if ( strlen ($PHPFL) > 1 && file_exists( $imageFile."/vendors/hp/hp-procurve-switch/".$PHPFL)) {
+				$Series2 = "<a href=\"$imageRoot/vendors/hp/hp-procurve-switch/$PHPFL\" target=\"_blank\">$Series</a>";
+			} else {
+				if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) ){
+				//.. СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёРµ 4Рµ СЃРёРјРІРѕР»Р° .png
+					$FLi = substr( $ImageSeries, 0, -4 );
+					$Series2 = "<a href='$imageRoot/vendors/hp/hp-procurve-switch/hpe_networks.php?$FLi' target='_blank'>$Series</a>";
+				} else $Series2 = "$Series";
 			
-			//.. Проверяем есть ли изображение к данной серии
-			if ( strlen ($ImageSeries) > 1 && file_exists("image/".$ImageSeries) ) { 
-					//.. Если изображение есть, то мы перед именем серии выводим изображение
-					//.. 22/09 - Нет, так не пойдет. Для вывода картинки нужно чтобы она еще и на диске была. Это надо проверить!!!!
+			}
+			
+			//.. РџСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ Рє РґР°РЅРЅРѕР№ СЃРµСЂРёРё
+			if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) ) {
+					//.. Р•СЃР»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ РµСЃС‚СЊ, С‚Рѕ РјС‹ РїРµСЂРµРґ РёРјРµРЅРµРј СЃРµСЂРёРё РІС‹РІРѕРґРёРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+					//.. 22/09 - РќРµС‚, С‚Р°Рє РЅРµ РїРѕР№РґРµС‚. Р”Р»СЏ РІС‹РІРѕРґР° РєР°СЂС‚РёРЅРєРё РЅСѓР¶РЅРѕ С‡С‚РѕР±С‹ РѕРЅР° РµС‰Рµ Рё РЅР° РґРёСЃРєРµ Р±С‹Р»Р°. Р­С‚Рѕ РЅР°РґРѕ РїСЂРѕРІРµСЂРёС‚СЊ!!!!
 
 $textOut = <<<OUTs
+
 <tr height="50">
-	<td colspan="3" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series</b></td>
+	<td colspan="3" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><img src="$imageRoot/request/image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Series2</b></td>
 </tr>
 OUTs;
-			
-				} else { //.. Иначе выводим только название Серии
-			
+
+				} else { //.. РРЅР°С‡Рµ РІС‹РІРѕРґРёРј С‚РѕР»СЊРєРѕ РЅР°Р·РІР°РЅРёРµ РЎРµСЂРёРё
+
 $textOut = <<<OUTs
+
 <tr height="50">
 	<td colspan="3" align="center" style="border-top: 1px solid #C4C9D1; border-bottom: 1px dotted;"><b>$Series</b></td>
 </tr>
 OUTs;
 			}
 
-print $textOut;		
+			print $textOut;
 		}
-	
-	
 
-		//.. Определяем цвет выводимой полоски ( по переменной $k)
-		if ( $k%2 ) $tr = "<tr align=\"center\">"; 
-			else 
+
+
+		//.. РћРїСЂРµРґРµР»СЏРµРј С†РІРµС‚ РІС‹РІРѕРґРёРјРѕР№ РїРѕР»РѕСЃРєРё ( РїРѕ РїРµСЂРµРјРµРЅРЅРѕР№ $k)
+		if ( $k%2 ) $tr = "<tr align=\"center\">";
+			else
 			$tr = "<tr align=\"center\" style=\"color: #0b3d91; background: #f0ffff;\">";
+			//..$tr = "<tr align=\"center\" onmouseover=\"this.style.backgroundColor='#0b3d91'; this.style.cursor='hand';\" onclick=\"window.location.href='tech.phtml'\" onmouseout=\"this.style.backgroundColor='#0b3d91\">";
 		$k++;
-		
-//.. Блок вывода строки данных по модели
-		if ( strlen ($netData[$j][$iImageProduct]) > 1 && file_exists("image/".$netData[$j][$iImageProduct]) ){
-				$ImageProduct = "<img src=\"image/".$netData[$j][$iImageProduct]."\" border=0 height=100 style=\"vertical-align: middle\" />";
+
+//.. Р‘Р»РѕРє РІС‹РІРѕРґР° СЃС‚СЂРѕРєРё РґР°РЅРЅС‹С… РїРѕ РјРѕРґРµР»Рё
+		if ( strlen ($netData[$j][$iImageProduct]) > 1 && file_exists( $imageFile."/request/image/".$netData[$j][$iImageProduct]) ){
+				$ImageProduct = "<img src=\"".$imageRoot."/request/image/".$netData[$j][$iImageProduct]."\" border=0 height=100 style=\"vertical-align: middle\" />";
 			} else $ImageProduct = "&nbsp;";
-		
+
 		$i1 = $netData[$j][$part];
 		$i3 = str_replace("\\\\","<br>",$netData[$j][$fullName]); //$netData[$j][$fullName];
-		
+
 $textOut = <<<OUTs
+
 $tr
 	<td>$ImageProduct</td>
 	<td>$i1</td>
@@ -902,24 +1079,27 @@ $tr
 </tr>
 OUTs;
 print $textOut;
-	
+
 	}
-	
-//.. Финал таблицы
-print "<table>";
+
+//.. Р¤РёРЅР°Р» С‚Р°Р±Р»РёС†С‹
+print "</table>\r\n<br>\r\n";
+//.. РџР•С‡РµС‚СЊ С…РІРѕСЃС‚РёРєР° "СЂРµРєР»Р°РјР°"
+print_reclama();
 }
 //.......................................................................................
 //.......................................................................................
-//.. Работа с переменными, которые мы передаем между программами...
-function setSession ( $Description, $Products )
+//.. Р Р°Р±РѕС‚Р° СЃ РїРµСЂРµРјРµРЅРЅС‹РјРё, РєРѕС‚РѕСЂС‹Рµ РјС‹ РїРµСЂРµРґР°РµРј РјРµР¶РґСѓ РїСЂРѕРіСЂР°РјРјР°РјРё...
+function setSession2 ( $Description, $Products )
 {
 	if ( !isset ($_SESSION['mProd']) ) {
 		$_SESSION['mProd'] = $Products;
 		$_SESSION['mDesc'] = $Description;
-	} 
+	}
+	//print_r ( $_SESSION );
 }
 
-function getSession ( )
+function getSession2 ( )
 {
 	if ( isset ($_SESSION['mProd']) ) {
 			$massOut = $_SESSION['mProd'];
@@ -928,7 +1108,417 @@ function getSession ( )
 			$massOut[0] = 0;
 			$Top[0] = 0;
 	}
+	//print_r ( $_SESSION );
 return array ( $Top, $massOut );
 }
+//.......................................................................................
+//.......................................................................................
+
+function print_reclama()
+{
+
+$textOut = <<<OUTs
+
+<div align=center>
+	<a href="/vendors/hp/hp-procurve-switch/search.php">
+		<img src="/images/banner/HPE_Selector_NetWork.png" border="0" align="middle">
+	</a>
+</div>
+OUTs;
+
+print $textOut;
+}
+
+//.......................................................................................
+//.......................................................................................
+//.. РћСЃРЅРѕРІРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° СЂР°Р±РѕС‚С‹ СЃ СЃРµРјРµР№СЃС‚РІР°РјРё. РµРµ Р·Р°РґР°С‡Р° РїСЂРѕР№С‚Рё РїРѕ РІСЃРµРј СЃРµРјРµР№СЃС‚РІР°Рј Рё РІС‹РІРµСЃС‚Рё РІСЃРµ РѕС‚РЅРѕСЃСЏС‰РёРµСЃСЏ Рє РЅРµРјСѓ СЃРµСЂРёРё
+function mainFamily( $pFamily, $NetData)
+{
+	//.. Р’С‹РІРѕРґРёРј РЅР°Р·РІР°РЅРёРµ РЎРµРјРµР№СЃС‚РІР°
+	//.. 1. РРґРµРј РїРѕ РјР°СЃСЃРёРІСѓ $pFamily Рё РєРѕР»Р»РµРєС†РёРѕРЅРёСЂСѓРµРј РјР°СЃСЃРёРІ РІРёРґР°
+	//.. РќР°Р·РІР°РЅРёРµ СЃРµСЂРёРё:: РЎСЃС‹Р»РєР° РЅР° РѕРїРёСЃР°РЅРёРµ СЃРµСЂРёРё:: РљР°СЂС‚РёРЅРєР° СЃРµСЂРёРё
+	//.. 2. Р”Р°Р»РµРµ РІС‹РІРѕРґРёРј РІ С‚Р°Р±Р»РёС†Сѓ РїРѕ 4 СЃС‚РѕР»Р±С†Р° ( РёР»Рё РјРµРЅСЊС€Рµ )
+	//.. РџРµС‡Р°С‚Р°РµРј "РІРµСЂРЅСѓС‚СЊСЃСЏ Рє РЅР°С‡Р°Р»Сѓ СЃС‚СЂР°РЅРёС†С‹
+	//.. print("\n\r--> mainFamily");
+	
+	$istr = count ( $pFamily );
+	
+	for ($i=0; $i < $istr; $i++) {
+		
+		$outFamily = collectFamily ( $pFamily[$i], $NetData);
+
+		$iSerAll = $iAll = count ( $outFamily);
+		$iSer = 0;
+
+		if ( $iSerAll >= 4 ) {
+			printHeads();
+			while ( $iSerAll >= 4 ) {
+				print4Series ( $outFamily, $iSer );
+				$iSerAll-=4;
+				$iSer += 4;
+			}
+		} 
+		//..
+		//.. echo ( "<h1> iAll=[$iAll]  iSerAll=[$iSerAll] iSer=[$iSer]</h1>");
+		if ( $iSerAll > 0 ) {
+			if ( $iAll < 4 ) {
+				printHeads();
+				print_trtd();
+			}
+			printSeries( $outFamily, $iSer, $iSerAll ); //.. РџРµС‡Р°С‚СЊ РѕСЃС‚Р°РІС€РёС…СЃСЏ РєРѕР»РѕРЅРѕРє РёР»Рё РЅРёС‡РµРіРѕ
+	
+			print_tdtr();
+			printEnds();
+		} else printEnds();
+	}
+}
+//.......................................................................................
+//.......................................................................................
+
+function collectFamily ( $Family, $netData)
+{
+	//..print("<br>\n\r--> collectFamily = $Family<br>");
+	printHead( $Family );
+	
+	$imageFile = $_SERVER["DOCUMENT_ROOT"];
+	$imageRoot = "http://".$_SERVER["SERVER_NAME"];
+	$ifamily = 6;
+	$iImage = 29;
+	$iPHP = 31;
+	
+	$iData = count ($netData);
+	$Series = "badNews";
+	$outFamily[0][0] = $netData[0][0];
+	//..print("<br>\n\r--> collectFamily2-- iData=$iData Series=$Series<br>");	
+
+	for ( $j=0,$k=0; $j < $iData; $j++){
+
+		//.. 
+		$testFamilies = $netData[$j][$ifamily];
+		//.. print("\n\r--> collectFamily-CYCLE- $j -- k=$k Series=$Series Family=$Family netData[$j][$ifamily] = $testFamilies<br>");
+		//.. РџСЂРѕРІРµСЂСЏРµРј РёР·РјРµРЅРёР»Р°СЃСЊ Р»Рё "СЃРµСЂРёСЏ" РєРѕРјРјСѓС‚Р°С‚РѕСЂРѕРІ РёР»Рё РЅРµС‚
+		if ( strcmp ($Series, $netData[$j][0]) ){
+		
+//			if ( strcmp ($Family, $netData[$j][$ifamily]) and $j <> 0) continue; //.. РІ СЃР»СѓС‡Р°Рµ Р°СЃР»Рё СЃРµСЂРёСЏ РїРѕРјРµРЅСЏР»Р°СЃСЊ, РЅРѕ РѕРЅР° РЅРµ РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє РЅР°С€РµРјСѓ СЃРµРјРµР№СЃС‚РІСѓ.
+			if ( strcmp ($Family, $netData[$j][$ifamily]) ) continue; //.. РІ СЃР»СѓС‡Р°Рµ Р°СЃР»Рё СЃРµСЂРёСЏ РїРѕРјРµРЅСЏР»Р°СЃСЊ, РЅРѕ РѕРЅР° РЅРµ РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє РЅР°С€РµРјСѓ СЃРµРјРµР№СЃС‚РІСѓ.
+			
+			$outFamily[$k][0] = $Series = $netData[$j][0];
+			$ImageSeries = $netData[$j][$iImage];
+
+			//.. Р•СЃР»Рё РµСЃС‚СЊ С„Р°Р№Р» СЃ С‚РµРєСЃС‚РѕРј, С‚Рѕ РјС‹ С„РѕСЂРјРёСЂСѓРµРј СЃСЃС‹Р»РєСѓ РІ РёРјРµРЅРё
+			$PHPFL = $netData[$j][$iPHP];
+			//$ll=$netData[$j][$iPHP-1];$rr=$netData[$j][$iPHP+1];print "ll=$ll//PHPFL=$PHPFL//rr=$rr<br>";
+			$Series2 = $Series;
+			if ( strlen ($PHPFL) > 1 && file_exists( $imageFile."/vendors/hp/hp-procurve-switch/".$PHPFL)) {
+				$outFamily[$k][1] = $Series2 = "<a href=\"$imageRoot/vendors/hp/hp-procurve-switch/$PHPFL\" target=\"_blank\">$Series</a>";
+			} else {
+				if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) ){
+				//.. СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёРµ 4Рµ СЃРёРјРІРѕР»Р° .png
+					$FLi = substr( $ImageSeries, 0, -4 );
+					$outFamily[$k][1] = $Series2 = "<a href='$imageRoot/vendors/hp/hp-procurve-switch/hpe_networks.php?$FLi' target='_blank'>$Series</a>";
+				} else $outFamily[$k][1] = $Series2 = "$Series";
+			
+			}
+			
+			//.. РџСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ Рє РґР°РЅРЅРѕР№ СЃРµСЂРёРё
+			if ( strlen ($ImageSeries) > 1 && file_exists( $imageFile."/request/image/".$ImageSeries) ) {
+					//.. Р•СЃР»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ РµСЃС‚СЊ, С‚Рѕ РјС‹ РїРµСЂРµРґ РёРјРµРЅРµРј СЃРµСЂРёРё РІС‹РІРѕРґРёРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+					//.. 22/09 - РќРµС‚, С‚Р°Рє РЅРµ РїРѕР№РґРµС‚. Р”Р»СЏ РІС‹РІРѕРґР° РєР°СЂС‚РёРЅРєРё РЅСѓР¶РЅРѕ С‡С‚РѕР±С‹ РѕРЅР° РµС‰Рµ Рё РЅР° РґРёСЃРєРµ Р±С‹Р»Р°. Р­С‚Рѕ РЅР°РґРѕ РїСЂРѕРІРµСЂРёС‚СЊ!!!!
+
+$outFamily[$k][2] = $textOut = <<<OUTs
+<a href="$imageRoot/vendors/hp/hp-procurve-switch/$PHPFL" target=_blank>
+<img src="$imageRoot/request/image/$ImageSeries" alt="$Series" border="0" height="100" style="vertical-align: middle;" />
+</a>
+OUTs;
+
+				} else { //.. РРЅР°С‡Рµ РІС‹РІРѕРґРёРј С‚РѕР»СЊРєРѕ РЅР°Р·РІР°РЅРёРµ РЎРµСЂРёРё
+
+$outFamily[$k][2] = $textOut = <<<OUTs
+
+<b>$Series</b>
+OUTs;
+			}
+			$k++;
+			//.. РІСЂРµРјРµРЅРЅРѕ!!!! 
+			//......print $textOut;
+		} //.. РћРєРѕРЅС‡Р°РЅРёРµ Р±Р»РѕРєР°, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РєРѕРіРґР° РёР·РјРµРЅСЏРµС‚СЃСЏ РЎРµСЂРёСЏ
+
+	}
+	return( $outFamily );
+	
+}
+//.......................................................................................
+//.......................................................................................
+function printHead( $strOut)
+{
+$textOut = <<<OUTs
+
+<br>
+<br>
+<h2 align="center"><a name="$strOut">$strOut</a></h2>
+OUTs;
+print $textOut;
+}
+//.......................................................................................
+function printHeads()
+{
+$textOut = <<<OUTs
+
+<table style="witdh: 100%; margin:0 auto; padding: 10px 0 10px; border-radius: 10px; background-color: #F0F8FF; border: 1px dotted #C4C9D1; color: #0b3d91;">
+OUTs;
+print $textOut;
+}
+//.......................................................................................
+function printEnds()
+{
+$textOut = <<<OUTs
+
+</table>
+
+OUTs;
+print $textOut;
+}
+//.......................................................................................
+function printSrtStart()
+{
+$textOut = <<<OUTs
+
+<tr align="center">
+
+OUTs;
+print $textOut;
+}
+
+function printSrtEnd()
+{
+$textOut = <<<OUTs
+
+</tr>
+
+OUTs;
+print $textOut;
+}
+
+function print_trtd()
+{
+$textOut = <<<OUTs
+
+<tr align="center">
+<td>
+
+OUTs;
+print $textOut;
+}
+
+function print_tdtr()
+{
+$textOut = <<<OUTs
+
+</td>
+</tr>
+
+OUTs;
+print $textOut;
+}
+
+//.......................................................................................
+//... РџРµС‡Р°С‚СЊ С‚Р°Р±Р»РёС†С‹ 2С… СЃС‚СЂРѕРє С‚Р°Р»РёС†С‹ РµСЃР»Рё С‡РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ РІ РЅРµР№ 4e
+//... $outFamily - РјР°СЃСЃРёРІ РґР°РЅРЅС‹С… РґР»СЏ РІС‹РІРѕРґР°
+//... $iBegin - СЃ РєР°РєРѕР№ РїРѕР·РёС†РёРё РІС‹РІРѕРґРёС‚СЊ
+
+function print4Series ( $outFamily, $iBegin )
+{
+printSrtStart();
+$ib  = $outFamily[$iBegin][2];
+$ib1 = $outFamily[$iBegin+1][2];
+$ib2 = $outFamily[$iBegin+2][2];
+$ib3 = $outFamily[$iBegin+3][2];
+$ibl  = $outFamily[$iBegin][1];
+$ibl1 = $outFamily[$iBegin+1][1];
+$ibl2 = $outFamily[$iBegin+2][1];
+$ibl3 = $outFamily[$iBegin+3][1];
+
+$textOut = <<<OUTs
+
+<td>
+<br>
+$ib
+</td>
+<td>
+$ib1
+</td>
+<td>
+$ib2
+</td>
+<td>
+$ib3
+</td>
+OUTs;
+print $textOut;
+printSrtEnd();
+printSrtStart();
+$textOut = <<<OUTs
+
+<td>
+$ibl
+</td>
+<td>
+$ibl1
+</td>
+<td>
+$ibl2
+</td>
+<td>
+$ibl3
+<br>
+</td>
+OUTs;
+print $textOut;
+printSrtEnd();
+}
+
+//... РџРµС‡Р°С‚СЊ 2С… СЃС‚СЂРѕРє С‚Р°Р±Р»РёС†С‹ РµСЃР»Рё С‡РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ РІ РЅРµР№ РјРµРЅСЊС€Рµ 4С…
+//... $outFamily - РјР°СЃСЃРёРІ РґР°РЅРЅС‹С… РґР»СЏ РІС‹РІРѕРґР°
+//... $iBegin - СЃ РєР°РєРѕР№ РїРѕР·РёС†РёРё РІС‹РІРѕРґРёС‚СЊ
+//... $iSer - СЃРєРѕР»СЊРєРѕ РїРѕР·РёС†РёР№ РІС‹РІРѕРґРёРј
+//...
+function printSeries( $outFamily, $iBegin, $iSer )
+{
+
+//...echo ( "begin <h1>non 4 stolb iSer=[$iSer]</h1>");
+
+switch( $iSer ) {
+	case 1:
+		$ib  = $outFamily[$iBegin][2];
+		$ibl  = $outFamily[$iBegin][1];
+
+		print_trtd();
+		$textOut = <<<OUTs
+
+<br>
+$ib
+</td>
+
+OUTs;
+print $textOut;
+		printSrtEnd();
+		print_trtd();
+
+		$textOut = <<<OUTs
+
+$ibl
+
+OUTs;
+print $textOut;
+//.. echo ("<h1>case 1</h1>");
+		break;
+	case 2:
+		$ib  = $outFamily[$iBegin][2];
+		$ib1 = $outFamily[$iBegin+1][2];
+		$ibl  = $outFamily[$iBegin][1];
+		$ibl1 = $outFamily[$iBegin+1][1];
+
+		print_trtd();
+		$textOut = <<<OUTs
+
+<br>
+$ib
+</td>
+<td>
+$ib1
+</td>
+OUTs;
+print $textOut;
+		printSrtEnd();
+		print_trtd();
+
+		$textOut = <<<OUTs
+		
+$ibl
+</td>
+<td>
+$ibl1
+
+OUTs;
+print $textOut;
+//.. echo ("<h1>case 2</h1>");
+		break;
+	case 3:
+		$ib  = $outFamily[$iBegin][2];
+		$ib1 = $outFamily[$iBegin+1][2];
+		$ib2 = $outFamily[$iBegin+2][2];
+		$ibl  = $outFamily[$iBegin][1];
+		$ibl1 = $outFamily[$iBegin+1][1];
+		$ibl2 = $outFamily[$iBegin+2][1];
+		
+		print_trtd();
+		$textOut = <<<OUTs
+
+<br>
+$ib
+</td>
+<td>
+$ib1
+</td>
+<td>
+$ib2
+</td>
+OUTs;
+print $textOut;
+		printSrtEnd();
+		print_trtd();
+
+		$textOut = <<<OUTs
+
+$ibl
+</td>
+<td>
+$ibl1
+</td>
+<td>
+$ibl2
+
+OUTs;
+print $textOut;
+//.. echo ("<h1>case 3</h1>");
+}
+
+}
 //...........................................................................................................................
+//.. Р¤РѕСЂРјРёСЂСѓРµРј СЃС‚СЂРѕРєСѓ РїРµСЂРµРјРµС‰РµРЅРёСЏ РїРѕ РїСЂРѕРґСѓРєС‚РѕРІС‹Рј Р»РёРЅРµР№РєР°Рј
+//...........................................................................................................................
+function listChoise( $pFamily )
+{
+$istr = count ( $pFamily );
+	for ($i=0; $i < $istr; $i++) {
+		$Family = $pFamily[ $i ];
+		echo (" <a href=\"index.php#$Family\" > $Family, </a> ");
+	}
+}
+
+//
+//.. print_recomendation() - Р’С‹РІРѕРґРёРј С‚РµРєСЃС‚ СЃ СЂРµРєРѕРјРµРЅРґР°С†РёСЏРјРё РїРѕ РІС‹Р±РѕСЂСѓ РєРѕРјРјСѓС‚Р°С‚РѕСЂР°
+//
+function  print_recomendation()
+{
+
+$textOut = <<<OUTs
+<div align=center>
+<table  align="center" style="width: 75%; padding: 10px 0 10px; background-color: #F0F8FF; border-radius: 10px; border: 1px dotted #C4C9D1; color: #0b3d91;">
+	<tr><td>
+
+<p><i><b>РџСЂРё РІС‹Р±РѕСЂРµ РєРѕРјРјСѓС‚Р°С‚РѕСЂР° РЅРµРѕР±С…РѕРґРёРјРѕ РѕРїСЂРµРґРµР»РёС‚СЊСЃСЏ СЃРѕ СЃР»РµРґСѓСЋС‰РёРµ РїР°СЂР°РјРµС‚СЂР°РјРё:</b></i></p>
+
+<p><i>РњР°СЃС€С‚Р°Р±РёСЂСѓРµРјРѕСЃС‚СЊ</i>: РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЂС‚РѕРІ Рё Р±СЋРґР¶РµС‚Р° PoE+ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№, С‚РѕС‡РµРє РґРѕСЃС‚СѓРїР° Рё РґСЂСѓРіРёС… IP СѓСЃС‚СЂРѕР№СЃС‚РІ</p>
+<p><i>РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ</i>: РѕР±СЉРµРјС‹ С‚СЂР°С„РёРєР°, С‚РёРїС‹ РїСЂРёР»РѕР¶РµРЅРёР№ Рё СЃРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С… РѕРїСЂРµРґРµР»СЏСЋС‚ РЅРµРѕР±С…РѕРґРёРјСѓСЋ РїСЂРѕРїСѓСЃРєРЅСѓСЋ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ РІР°С€РµРіРѕ РєРѕРјРјСѓС‚Р°С‚РѕСЂР°</p>
+<p><i>РћС‚РєР°Р·РѕСѓСЃС‚РѕР№С‡РёРІРѕСЃС‚СЊ СЃРµС‚Рё</i>: С‚СЂРµР±СѓРµС‚СЃСЏ Р»Рё РІР°Рј СЃС‚РµРєРёСЂРѕРІР°РЅРёРµ Рё/РёР»Рё СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРёРµ Р±Р»РѕРєРѕРІ РїРёС‚Р°РЅРёСЏ</p>
+<p><i>РњР°СЂС€СЂСѓС‚РёР·Р°С†РёСЏ</i>: С…РІР°С‚РёС‚ Р»Рё РІР°Рј L2 РєРѕРјРјСѓС‚Р°С‚РѕСЂР° Р±РµР· РјР°СЂС€СЂСѓС‚РёР·Р°С†РёРё, С‚СЂРµР±СѓРµС‚СЃСЏ Р»Рё Р±Р°Р·РѕРІС‹Р№ L3 СЃ РїРѕРґРґРµСЂР¶РєРѕР№ СЃС‚Р°С‚РёС‡РµСЃРєРѕР№ Рё РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РјР°СЂС€СЂСѓС‚РёР·Р°С†РёРё, Р»РёР±Рѕ РЅРµРѕР±С…РѕРґРёРј РїСЂРѕРґРІРёРЅСѓС‚С‹Р№ L3 С„СѓРЅРєС†РёРѕРЅР°Р»</p>
+<p><i>РЈРїСЂР°РІР»СЏРµРјРѕСЃС‚СЊ</i>: РѕРїСЂРµРґРµР»РёС‚Рµ, РЅСѓР¶РЅС‹ Р»Рё РІР°С€РµР№ СЃРµС‚Рё РјРѕРЅРёС‚РѕСЂРёРЅРі Рё СѓРґР°Р»РµРЅРЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ РёР· РѕР±Р»Р°РєР° РёР»Рё С‚СЂРµР±СѓРµС‚СЃСЏ РјСѓР»СЊС‚РёРІРµРЅРґРѕСЂРЅР°СЏ СЃРёСЃС‚РµРјР° СѓРїСЂР°РІР»РµРЅРёСЏ, СЂР°Р±РѕС‚Р°СЋС‰Р°СЏ Р»РѕРєР°Р»СЊРЅРѕ</p>
+	</td></tr>
+</table>
+</div>
+OUTs;
+print $textOut;
+
+}
 ?>
