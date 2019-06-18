@@ -3,7 +3,7 @@
 <body>
 
 <?php
-require ("library.php.inc"); //.. Библиотека с функциями 
+require ("library.php.inc"); //.. Library
 
 $choices=$_POST['sz'];
 $dates = date("d.m.Y H:i:s");
@@ -18,11 +18,11 @@ if ( $Products[0] == 0 ) {
 } 
 
 //.. TEST::print "before searchFor()<br>\n"; print_r ( $choices ); print "before2 searchFor()<br>\n";
-$mSearch = searchFor( $choices, $Products ); //... Этот Массив ...но он же может быть и пустым
+$mSearch = searchFor( $choices, $Products ); //... Result or 0
 //.. TEST:: print "after searchFor()<br>\n"; print_r ( $mSearch);
 if ( $mSearch[0] == 0 ) {
 	print "No records find<br>"; 
-} else searchOut( $Description, $mSearch, $choices )
+} else searchOut( $Description, $mSearch, $choices );
 
 ?>
 
