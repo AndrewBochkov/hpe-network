@@ -4,10 +4,10 @@
 <?
 error_reporting( E_ALL );
 //$ierror_reporting = error_reporting();
-//print "Установлен уровень ошибок $ierror_reporting <br>";
+//print "$ierror_reporting<br>";
 
 require ("library.php.inc");
-//print "include Работает!<br>";
+//print "include library.php.inc!<br>";
 
 list ( $Description, $Products ) = readFiles( 'HPE-Network.csv' );
 //print_r ( $Products );
@@ -15,16 +15,16 @@ list ( $Description, $Products ) = readFiles( 'HPE-Network.csv' );
 $Products = multOut ( $Products );
 //print_r ( $Products );
 
-//.. Записали основные параметры в сессию
+//.. Write base parameters to session
 setSession ( $Description, $Products );
 
-//.. tableOut( $Description, $Products ); //.. До лучших времен :)
+//.. tableOut( $Description, $Products ); //.. Г„Г® Г«ГіГ·ГёГЁГµ ГўГ°ГҐГ¬ГҐГ­ :)
 
-//.. Выбираем поисковые параметры для последующего поиска
+//.. Select search parameters
 
 list ( $pLevel, $pNumPorts, $pSreda, $pPorts, $pPOEbudget, $pMAC, $pProizv, $pPropusk) = collectParameters ( );
 
-/*
+/* TEST 
 print_r ( $pLevel );
 print_r ( $pNumPorts );
 print_r ( $pSreda );
