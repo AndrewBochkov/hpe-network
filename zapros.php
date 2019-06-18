@@ -22,7 +22,7 @@ $mSearch = searchFor( $choices, $Products ); //... Result or 0
 //.. TEST:: print "after searchFor()<br>\n"; print_r ( $mSearch);
 if ( $mSearch[0] == 0 ) {
 	print "No records find<br>"; 
-} else searchOut( $Description, $mSearch, $choices );
+} else searchOut( $Description, $mSearch, $choices ); //... Print array with result
 
 ?>
 
