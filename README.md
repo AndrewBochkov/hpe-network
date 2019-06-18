@@ -1,8 +1,8 @@
 # hpe-network
-Search and choices
+Search and select.
 
-Utility used for choice needed hpe commutators.
+The utility is used to select HP switches.
 
-Write on php.
+written in PHP.
 
-Script insert to html page. 
+To use it, paste the script into an html page.
